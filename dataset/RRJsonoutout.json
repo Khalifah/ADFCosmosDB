@@ -1,0 +1,19 @@
+{
+	"name": "RRJsonoutout",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "roundrobin/Output",
+				"container": "adftutorial"
+			}
+		},
+		"schema": {}
+	}
+}
