@@ -1,0 +1,58 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RRExcelinput",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "RRJsonoutout",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          StudentID as string,",
+				"          StudentName as string,",
+				"          MentorID as string,",
+				"          DateofBirth as string,",
+				"          Gender as string,",
+				"          City as string,",
+				"          Country as string,",
+				"          Longtitude as string,",
+				"          Latitude as string,",
+				"          Guardian as string,",
+				"          ContactNumber as string,",
+				"          Address as string,",
+				"          {SchoolEnrolled } as string,",
+				"          StartDate as string,",
+				"          {SpokenLanguage } as string,",
+				"          {WrittenLanguage } as string,",
+				"          Favoritesubject as string,",
+				"          CareerAspiration as string,",
+				"          Background as string,",
+				"          ContactEmail as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
