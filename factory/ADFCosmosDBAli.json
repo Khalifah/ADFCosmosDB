@@ -1,0 +1,15 @@
+{
+	"name": "ADFCosmosDBAli",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "a2991585-f1e2-48ec-b0db-9dcd3ace886c",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+		"userAssignedIdentities": {
+			"/subscriptions/52db91f0-7f23-4e80-96ec-ac7559f84279/resourcegroups/AzureTestforAli/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testingUAMI": {
+				"clientId": "c721af14-a53a-4f9d-becd-3acfba258c0d",
+				"principalId": "4f2364ba-1a73-4f40-9ff2-31856f471c31"
+			}
+		}
+	}
+}

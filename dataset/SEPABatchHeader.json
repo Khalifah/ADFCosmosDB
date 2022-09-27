@@ -1,0 +1,16 @@
+{
+	"name": "SEPABatchHeader",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDb1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": "sepa-batch-header"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

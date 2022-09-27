@@ -1,0 +1,16 @@
+{
+	"name": "SEPASinglePayments",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDb1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": "sepa-single-payments"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,1049 @@
+{
+	"name": "IngestionPipeline_2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ReadLastInsertedSequenceNumber",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"query": {
+							"value": "@concat('SELECT top 1  ToString(c.SequenceNumber) as LastInsertedSequence, c.EndOfDay as EndOfDay FROM c where c.RunDate = (select VALUE max(c.RunDate) from c) and c.Status = ''','Completed',''' order by c.RunDate desc,c.SequenceNumber desc')",
+							"type": "Expression"
+						},
+						"preferredRegions": [],
+						"detectDatetime": false
+					},
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set LastInsertedSequenceNumber",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ReadLastInsertedSequenceNumber",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "LastInsertedSequenceNumber",
+					"value": {
+						"value": "@if(empty(activity('ReadLastInsertedSequenceNumber').output.value),'0',if(empty(activity('ReadLastInsertedSequenceNumber').output.value[0]),'0',if(equals(activity('ReadLastInsertedSequenceNumber').output.value[0].EndOfDay,'False'),activity('ReadLastInsertedSequenceNumber').output.value[0].LastInsertedSequence,'0')))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set UniqueId",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set LastInsertedSequenceNumber",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "UniqueId",
+					"value": {
+						"value": "@guid()",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "UpdateCompletionStatus",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "IngestionDataFlow_copy3",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "sepa-ingestion-run-log"
+					},
+					{
+						"name": "Destination",
+						"value": "sepa-ingestion-run-log"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"additionalColumns": [
+							{
+								"name": "FinalState",
+								"value": {
+									"value": "Completed",
+									"type": "Expression"
+								}
+							}
+						],
+						"query": {
+							"value": "@concat('select * from c where c.id =''',variables('UniqueId'),''' and c.Status = ''','In Progress','''')",
+							"type": "Expression"
+						},
+						"preferredRegions": [],
+						"detectDatetime": true
+					},
+					"sink": {
+						"type": "CosmosDbSqlApiSink",
+						"writeBehavior": "upsert",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['IsSequenceCorrect']"
+								},
+								"sink": {
+									"path": "$['IsSequenceCorrect']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['EndOfDay']"
+								},
+								"sink": {
+									"path": "$['EndOfDay']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NoOfRecords']"
+								},
+								"sink": {
+									"path": "$['NoOfRecords']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ArrayCount']"
+								},
+								"sink": {
+									"path": "$['ArrayCount']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Comments']"
+								},
+								"sink": {
+									"path": "$['Comments']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['FileName']"
+								},
+								"sink": {
+									"path": "$['FileName']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['SequenceNumber']"
+								},
+								"sink": {
+									"path": "$['SequenceNumber']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"path": "$['id']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RunDate']"
+								},
+								"sink": {
+									"path": "$['RunDate']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ExpectedSequenceNumber']"
+								},
+								"sink": {
+									"path": "$['ExpectedSequenceNumber']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['FailureReason']"
+								},
+								"sink": {
+									"path": "$['FailureReason']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['IsActive']"
+								},
+								"sink": {
+									"path": "$['IsActive']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['_rid']"
+								},
+								"sink": {
+									"path": "$['_rid']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['_self']"
+								},
+								"sink": {
+									"path": "$['_self']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['_etag']"
+								},
+								"sink": {
+									"path": "$['_etag']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['_attachments']"
+								},
+								"sink": {
+									"path": "$['_attachments']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['_ts']"
+								},
+								"sink": {
+									"path": "$['_ts']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['FinalState']"
+								},
+								"sink": {
+									"path": "$['Status']"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "ConditionToInsertorUpdateLog",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "FailureLogExists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(activity('FailureLogExists').output.value)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "UpdateFailureStatus",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "sepa-ingestion-run-log"
+								},
+								{
+									"name": "Destination",
+									"value": "sepa-ingestion-run-log"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "CosmosDbSqlApiSource",
+									"additionalColumns": [
+										{
+											"name": "FinalState",
+											"value": {
+												"value": "Failed",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "Reason",
+											"value": {
+												"value": "Pipeline Failed. Please Investigate further. Possible reasons might include primary key violation.",
+												"type": "Expression"
+											}
+										}
+									],
+									"query": {
+										"value": "@concat('select * from c where c.id =''',variables('UniqueId'),'''order by c.RunDate desc')",
+										"type": "Expression"
+									},
+									"preferredRegions": [],
+									"detectDatetime": true
+								},
+								"sink": {
+									"type": "CosmosDbSqlApiSink",
+									"writeBehavior": "upsert",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"path": "$['IsSequenceCorrect']"
+											},
+											"sink": {
+												"path": "$['IsSequenceCorrect']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['EndOfDay']"
+											},
+											"sink": {
+												"path": "$['EndOfDay']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['NoOfRecords']"
+											},
+											"sink": {
+												"path": "$['NoOfRecords']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['ArrayCount']"
+											},
+											"sink": {
+												"path": "$['ArrayCount']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['Comments']"
+											},
+											"sink": {
+												"path": "$['Comments']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['FileName']"
+											},
+											"sink": {
+												"path": "$['FileName']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['SequenceNumber']"
+											},
+											"sink": {
+												"path": "$['SequenceNumber']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['id']"
+											},
+											"sink": {
+												"path": "$['id']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['RunDate']"
+											},
+											"sink": {
+												"path": "$['RunDate']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['ExpectedSequenceNumber']"
+											},
+											"sink": {
+												"path": "$['ExpectedSequenceNumber']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['_rid']"
+											},
+											"sink": {
+												"path": "$['_rid']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['_self']"
+											},
+											"sink": {
+												"path": "$['_self']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['_etag']"
+											},
+											"sink": {
+												"path": "$['_etag']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['_attachments']"
+											},
+											"sink": {
+												"path": "$['_attachments']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['_ts']"
+											},
+											"sink": {
+												"path": "$['_ts']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['FinalState']"
+											},
+											"sink": {
+												"path": "$['Status']"
+											}
+										},
+										{
+											"source": {
+												"path": "$['Reason']"
+											},
+											"sink": {
+												"path": "$['FailureReason']"
+											}
+										}
+									],
+									"collectionReference": ""
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SEPAIngestionRunLog",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SEPAIngestionRunLog",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "InsertLogRecord",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "CosmosDbSqlApiSource",
+									"additionalColumns": [
+										{
+											"name": "FileName",
+											"value": {
+												"value": "@pipeline().parameters.SourceFile",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "RunDate",
+											"value": {
+												"value": "@adddays(utcnow(), 0, 'yyyy-MM-dd')",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "Status",
+											"value": {
+												"value": "Failed",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "FailureReason",
+											"value": {
+												"value": "Pipeline Failed. Please Investigate further. Tips : Possible reasons might include incorrect file format or concurrent run limit, etc.",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "id",
+											"value": {
+												"value": "@variables('UniqueId')",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "Comments",
+											"value": {
+												"value": "Not Applicable",
+												"type": "Expression"
+											}
+										}
+									],
+									"query": {
+										"value": "SELECT top 1 0 as SequenceNumber from c",
+										"type": "Expression"
+									},
+									"preferredRegions": [],
+									"detectDatetime": true
+								},
+								"sink": {
+									"type": "CosmosDbSqlApiSink",
+									"writeBehavior": "insert"
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SEPAIngestionRunLog",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SEPAIngestionRunLog",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "FailureLogExists",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "IngestionDataFlow_copy3",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"query": {
+							"value": "@concat('select * from c where c.id =''',variables('UniqueId'),'''')",
+							"type": "Expression"
+						},
+						"preferredRegions": [],
+						"detectDatetime": true
+					},
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "LoadSequenceNumbersForFileReceived",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set UniqueId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"query": {
+							"value": "@concat('select ToString(c.SequenceNumber) as SequenceNumber from c where c.FileName =''',pipeline().parameters.SourceFile,''' and c.Status = ''','Completed','''')",
+							"type": "Expression"
+						},
+						"preferredRegions": [],
+						"detectDatetime": true
+					},
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Convert Sequence Number Array to String",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LoadSequenceNumbersForFileReceived",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LoadSequenceNumbersForFileReceived').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set PlaceHolder",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "PlaceHolder",
+								"value": {
+									"value": "@if(empty(variables('SequenceNumbers')),item().SequenceNumber,concat(item().SequenceNumber,',',variables('SequenceNumbers')))",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set SequenceNumbers",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set PlaceHolder",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "SequenceNumbers",
+								"value": {
+									"value": "@variables('PlaceHolder')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set SequenceNumberArray",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Convert Sequence Number Array to String",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "SequenceNumberArray",
+					"value": {
+						"value": "@split(variables('SequenceNumbers'),',')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "LoadSequenceNumbersForLatestRunDate",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"query": {
+							"value": "@concat('select top 1 c.RunDate from c where c.Status = ''','Completed',''' order by c.RunDate desc')",
+							"type": "Expression"
+						},
+						"preferredRegions": [],
+						"detectDatetime": true
+					},
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Convert RunDate Sequence Number Array String",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "CheckIfRunDate is Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@if(empty(activity('LoadSequenceNumbersForLatestRunDate').output.Value),variables('EmptyArray'),activity('GetAllSuccessfullSequenceNumbersForRunDate').output.Value)",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set PlaceHolder For RunDate Sequence Numbers",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "RunDatePlaceHolder",
+								"value": {
+									"value": "@if(empty(variables('RunDateSequenceNumbers')),item().SequenceNumber,concat(item().SequenceNumber,',',variables('RunDateSequenceNumbers')))",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set RunDateSequenceNumbers",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set PlaceHolder For RunDate Sequence Numbers",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "RunDateSequenceNumbers",
+								"value": {
+									"value": "@variables('RunDatePlaceHolder')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set SequenceNumberArrayForRunDate",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Convert RunDate Sequence Number Array String",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "RunDateSequenceNumberArray",
+					"value": {
+						"value": "@split(variables('RunDateSequenceNumbers'),',')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "CheckIfRunDate is Empty",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "LoadSequenceNumbersForLatestRunDate",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(activity('LoadSequenceNumbersForLatestRunDate').output.Value)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "GetAllSuccessfullSequenceNumbersForRunDate",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "Set Latest RunDate",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "CosmosDbSqlApiSource",
+									"query": {
+										"value": "@concat('select  ToString(c.SequenceNumber) as SequenceNumber  from c where c.RunDate =''',activity('LoadSequenceNumbersForLatestRunDate').output.Value[0].RunDate,''' and c.Status= ''','Completed',''' order by c.SequenceNumber desc')",
+										"type": "Expression"
+									},
+									"preferredRegions": [],
+									"detectDatetime": true
+								},
+								"dataset": {
+									"referenceName": "SEPAIngestionRunLog",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						},
+						{
+							"name": "Set Latest RunDate",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "LatestRunDate",
+								"value": {
+									"value": "@activity('LoadSequenceNumbersForLatestRunDate').output.Value[0].RunDate",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "IngestionDataFlow_copy3",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Set SequenceNumberArray",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set SequenceNumberArrayForRunDate",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "IngestionDataFlow_copy3",
+						"type": "DataFlowReference",
+						"parameters": {
+							"FileName": {
+								"value": "'@{pipeline().parameters.SourceFile}'",
+								"type": "Expression"
+							},
+							"LastInsertedSequenceNumber": {
+								"value": "'@{variables('LastInsertedSequenceNumber')}'",
+								"type": "Expression"
+							},
+							"UniqueId": {
+								"value": "'@{variables('UniqueId')}'",
+								"type": "Expression"
+							},
+							"SequenceNumbers": {
+								"value": "@variables('SequenceNumberArray')",
+								"type": "Expression"
+							},
+							"CurrentDate": {
+								"value": "'@{adddays(utcnow(), 0, 'yyyy-MM-dd')}'",
+								"type": "Expression"
+							},
+							"RunDateSequenceNumbers": {
+								"value": "@variables('RunDateSequenceNumberArray')",
+								"type": "Expression"
+							},
+							"LatestRunDate": {
+								"value": "'@{variables('LatestRunDate')}'",
+								"type": "Expression"
+							}
+						},
+						"datasetParameters": {
+							"LoadBBInputFile": {
+								"FileName": "@pipeline().parameters.SourceFile"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"runConcurrently": true
+				}
+			}
+		],
+		"parameters": {
+			"SourceFile": {
+				"type": "string"
+			},
+			"FolderPath": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"LastInsertedSequenceNumber": {
+				"type": "String",
+				"defaultValue": "0"
+			},
+			"UniqueId": {
+				"type": "String"
+			},
+			"SequenceNumbers": {
+				"type": "String"
+			},
+			"PlaceHolder": {
+				"type": "String"
+			},
+			"SequenceNumberArray": {
+				"type": "Array"
+			},
+			"RunDateSequenceNumbers": {
+				"type": "String"
+			},
+			"RunDatePlaceHolder": {
+				"type": "String"
+			},
+			"RunDateSequenceNumberArray": {
+				"type": "Array"
+			},
+			"EmptyArray": {
+				"type": "Array",
+				"defaultValue": []
+			},
+			"LatestRunDate": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-16T18:13:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

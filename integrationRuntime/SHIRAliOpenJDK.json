@@ -1,0 +1,12 @@
+{
+	"name": "SHIRAliOpenJDK",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/52db91f0-7f23-4e80-96ec-ac7559f84279/resourcegroups/AzureTestforAli/providers/Microsoft.DataFactory/factories/Ali-ADF/integrationruntimes/integrationRuntime6-Available",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

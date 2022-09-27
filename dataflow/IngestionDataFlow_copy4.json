@@ -1,0 +1,53 @@
+{
+	"name": "IngestionDataFlow_copy4",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "InputData",
+						"type": "DatasetReference"
+					},
+					"name": "LoadBBInputFile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SEPASinglePayments",
+						"type": "DatasetReference"
+					},
+					"name": "SEPASinglePayments"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FlattenSepaPmtArray"
+				},
+				{
+					"name": "ParseInputData"
+				},
+				{
+					"name": "InjectPartitionKey"
+				},
+				{
+					"name": "InjectFields"
+				},
+				{
+					"name": "ConditionalSplit1"
+				},
+				{
+					"name": "ArrayCount"
+				},
+				{
+					"name": "InjectStatusField"
+				},
+				{
+					"name": "ConditionalSplit3"
+				}
+			],
+			"script": "parameters{\n\tFileName as string,\n\tLastInsertedSequenceNumber as string,\n\tUniqueId as string,\n\tSequenceNumbers as string[],\n\tCurrentDate as string,\n\tRunDateSequenceNumbers as string[],\n\tLatestRunDate as string\n}\nsource(output(\n\t\tSepaData as (Header as (runDate as string, deliveryNumber as string, versionNumber as string), SepaPmt as (incrementalRecord as integer, IBANClient as string, processingType as string, paymentReference as string)[], Trailer as (noOfRecords as integer, endofDay as string))\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument',\n\tunquotedColumnNames: true,\n\thasComments: true,\n\tsingleQuoted: true,\n\tbackslashEscape: true,\n\tpreferredIntegralType: 'integer') ~> LoadBBInputFile\nConditionalSplit1@CountValidationSuccess foldDown(unroll(SepaData.SepaPmt, SepaData.SepaPmt),\n\tmapColumn(\n\t\tRunDate = RunDate.runDate,\n\t\tversionNumber,\n\t\teach(SepaData.SepaPmt,patternMatch(`^[a-zA-Z0-9_]*$`))\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> FlattenSepaPmtArray\nLoadBBInputFile parse(DeliveryNumber = toString(@(SepaData.Header.deliveryNumber)) ? (deliveryNumber as string),\n\t\tRunDate = toString(@(SepaData.Header.runDate)) ? (runDate as string),\n\t\tNoOfRecords = toString(@(SepaData.Trailer.noOfRecords)) ? (noOfRecords as string),\n\t\tEndofDay = toString(@(SepaData.Trailer.endofDay)) ? (endofDay as string),\n\tformat: 'json',\n\tdocumentForm: 'singleDocument') ~> ParseInputData\nFlattenSepaPmtArray derive(PartitionKey = concat(IBANClient,'-',RunDate),\n\t\tFileName = $FileName,\n\t\tid = concat(paymentReference,'-',IBANClient,'-', RunDate)) ~> InjectPartitionKey\nParseInputData derive(FileName = $FileName,\n\t\tid = $UniqueId,\n\t\tSequenceNumber = toInteger(DeliveryNumber.deliveryNumber),\n\t\tDate = toString(RunDate.runDate),\n\t\tversionNumber = SepaData.Header.versionNumber) ~> InjectFields\nArrayCount split(toInteger(NoOfRecords.noOfRecords) == ArrayCount && ArrayCount>0,\n\tdisjoint: false) ~> ConditionalSplit1@(CountValidationSuccess, CountValidationFailure)\nInjectStatusField derive(ArrayCount = size(SepaData.SepaPmt)) ~> ArrayCount\nInjectFields derive(Status = \"In Progress\",\n\t\tFailureReason = \"Not Applicable\",\n\t\tArrayCount = \"Not Applicable\",\n\t\tIsActive = \"True\",\n\t\tComments = \"Not Applicable\") ~> InjectStatusField\nConditionalSplit1@CountValidationFailure split((ArrayCount>0 || (ArrayCount == 0 && toInteger(NoOfRecords.noOfRecords) > 0)),\n\tdisjoint: false) ~> ConditionalSplit3@(NonEmptyFile, EmptyFile)\nInjectPartitionKey sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/PartitionKey'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SEPASinglePayments"
+		}
+	}
+}

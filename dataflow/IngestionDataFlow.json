@@ -1,0 +1,180 @@
+{
+	"name": "IngestionDataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "InputData",
+						"type": "DatasetReference"
+					},
+					"name": "LoadBBInputFile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SEPASinglePayments",
+						"type": "DatasetReference"
+					},
+					"name": "SEPASinglePayments"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPABatchHeader",
+						"type": "DatasetReference"
+					},
+					"name": "SEPABatchHeader"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPABatchPayments",
+						"type": "DatasetReference"
+					},
+					"name": "SEPABatchPayments"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "CorrectSequence"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "UpdateValidationFailure"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "UpdateSequenceMisMatch"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "UpdateEmptyFileComment"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "DuplicateRecord"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "KeyFieldsNull"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "RunDateNull"
+				},
+				{
+					"dataset": {
+						"referenceName": "SEPAIngestionRunLog",
+						"type": "DatasetReference"
+					},
+					"name": "InValidVersionNumber"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FlattenSepaPmtArray"
+				},
+				{
+					"name": "ParseInputData"
+				},
+				{
+					"name": "ConditionalSplit"
+				},
+				{
+					"name": "InjectPartitionKey"
+				},
+				{
+					"name": "InjectFields"
+				},
+				{
+					"name": "ConditionalSplit1"
+				},
+				{
+					"name": "ArrayCount"
+				},
+				{
+					"name": "InjectStatusField"
+				},
+				{
+					"name": "InjectFailureStatus"
+				},
+				{
+					"name": "ConditionalSplit2"
+				},
+				{
+					"name": "InjectSequenceMisMatchField"
+				},
+				{
+					"name": "ConditionalSplit3"
+				},
+				{
+					"name": "InjectCommentForEmptyFile"
+				},
+				{
+					"name": "AlterRowForNonEmptyFile"
+				},
+				{
+					"name": "AlterRowForEmptyFile"
+				},
+				{
+					"name": "InjectCorrectSequence"
+				},
+				{
+					"name": "ConditionalSplit4"
+				},
+				{
+					"name": "InjectDetailsForDuplicateRecord"
+				},
+				{
+					"name": "ConditionalSplit5"
+				},
+				{
+					"name": "AggregateAllRecords"
+				},
+				{
+					"name": "AlterRowForKeyFieldsNull"
+				},
+				{
+					"name": "InjectStatus"
+				},
+				{
+					"name": "InjectStatusFieldsForRunDateValidation"
+				},
+				{
+					"name": "ConditionalSplit6"
+				},
+				{
+					"name": "ConditionalSplit7"
+				},
+				{
+					"name": "ValidateVersionNumber"
+				},
+				{
+					"name": "InjectVersionNumberFailureFields"
+				}
+			],
+			"script": "parameters{\n\tFileName as string,\n\tLastInsertedSequenceNumber as string,\n\tUniqueId as string,\n\tSequenceNumbers as string[],\n\tCurrentDate as string,\n\tRunDateSequenceNumbers as string[],\n\tLatestRunDate as string\n}\nsource(output(\n\t\tSepaData as (Header as (runDate as string, deliveryNumber as string, versionNumber as string), SepaPmt as (incrementalRecord as integer, IBANClient as string, processingType as string, paymentReference as string)[], Trailer as (noOfRecords as integer, endofDay as string))\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument',\n\tunquotedColumnNames: true,\n\thasComments: true,\n\tsingleQuoted: true,\n\tbackslashEscape: true,\n\tpreferredIntegralType: 'integer') ~> LoadBBInputFile\nConditionalSplit1@CountValidationSuccess foldDown(unroll(SepaData.SepaPmt, SepaData.SepaPmt),\n\tmapColumn(\n\t\tRunDate = RunDate.runDate,\n\t\tversionNumber,\n\t\teach(SepaData.SepaPmt,patternMatch(`^[a-zA-Z0-9_]*$`))\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> FlattenSepaPmtArray\nLoadBBInputFile parse(DeliveryNumber = toString(@(SepaData.Header.deliveryNumber)) ? (deliveryNumber as string),\n\t\tRunDate = toString(@(SepaData.Header.runDate)) ? (runDate as string),\n\t\tNoOfRecords = toString(@(SepaData.Trailer.noOfRecords)) ? (noOfRecords as string),\n\t\tEndofDay = toString(@(SepaData.Trailer.endofDay)) ? (endofDay as string),\n\tformat: 'json',\n\tdocumentForm: 'singleDocument') ~> ParseInputData\nInjectPartitionKey split(processingType == 'SDD.ICOMPR' || processingType == 'SCT.ICOMP' || processingType == 'SDD.INDIV' || processingType == 'SCT.INDIV',\n\tprocessingType == 'SDD.BATCH' || processingType == 'SCT.BATCH' || processingType == 'SCT.COMP' || processingType == 'SDD.COMPR',\n\tdisjoint: false,\n\tpartitionBy('roundRobin', 16)) ~> ConditionalSplit@(BatchPayments, BatchHeader, SinglePayments)\nConditionalSplit5@KeyValuesNotNull derive(PartitionKey = concat(IBANClient,'-',RunDate),\n\t\tFileName = $FileName,\n\t\tid = concat(paymentReference,'-',IBANClient,'-', RunDate)) ~> InjectPartitionKey\nParseInputData derive(FileName = $FileName,\n\t\tid = $UniqueId,\n\t\tSequenceNumber = toInteger(DeliveryNumber.deliveryNumber),\n\t\tDate = toString(RunDate.runDate),\n\t\tversionNumber = SepaData.Header.versionNumber) ~> InjectFields\nArrayCount split(toInteger(NoOfRecords.noOfRecords) == ArrayCount && ArrayCount>0,\n\tdisjoint: false) ~> ConditionalSplit1@(CountValidationSuccess, CountValidationFailure)\nInjectStatusField derive(ArrayCount = size(SepaData.SepaPmt)) ~> ArrayCount\nConditionalSplit4@NonDuplicateRecord derive(Status = \"In Progress\",\n\t\tFailureReason = \"Not Applicable\",\n\t\tArrayCount = \"Not Applicable\",\n\t\tIsActive = \"True\",\n\t\tComments = \"Not Applicable\") ~> InjectStatusField\nConditionalSplit3@NonEmptyFile derive(Status = \"Failed\",\n\t\tFailureReason = concat('Pipeline Failed. Number of records in trailer and Sepa payment array mismatched. FileName : ',$FileName,'. SequenceNumber : ',DeliveryNumber.deliveryNumber)) ~> InjectFailureStatus\nInjectStatusField split(add(toInteger($LastInsertedSequenceNumber),1) == toInteger(DeliveryNumber.deliveryNumber),\n\tdisjoint: false) ~> ConditionalSplit2@(SequenceOrderCorrect, SequenceOrderMismatch)\nConditionalSplit2@SequenceOrderMismatch derive(IsSequenceCorrect = toBoolean(\"false\"),\n\t\tExpectedSequenceNumber = add(toInteger($LastInsertedSequenceNumber),1)) ~> InjectSequenceMisMatchField\nConditionalSplit1@CountValidationFailure split((ArrayCount>0 || (ArrayCount == 0 && toInteger(NoOfRecords.noOfRecords) > 0)),\n\tdisjoint: false) ~> ConditionalSplit3@(NonEmptyFile, EmptyFile)\nConditionalSplit3@EmptyFile derive(Status = \"Completed\",\n\t\tComments = concat('Empty File Received. FileName: ', $FileName,'. Sequence Number: ',DeliveryNumber.deliveryNumber)) ~> InjectCommentForEmptyFile\nInjectFailureStatus alterRow(updateIf(true())) ~> AlterRowForNonEmptyFile\nInjectCommentForEmptyFile alterRow(updateIf(true())) ~> AlterRowForEmptyFile\nConditionalSplit2@SequenceOrderCorrect derive(IsSequenceCorrect = toBoolean(\"true\")) ~> InjectCorrectSequence\nValidateVersionNumber@ValidVersionNumber split(!in($SequenceNumbers, toString(toInteger(DeliveryNumber.deliveryNumber))) && !(equals(RunDate.runDate, $LatestRunDate) && in($RunDateSequenceNumbers, toString(toInteger(DeliveryNumber.deliveryNumber)))),\n\tdisjoint: false) ~> ConditionalSplit4@(NonDuplicateRecord, DuplicateRecord)\nConditionalSplit4@DuplicateRecord derive(Status = \"Failed\",\n\t\tFailureReason = concat('Pipeline Failed. Duplicate File Found. FileName : ',$FileName,'. SequenceNumber : ',DeliveryNumber.deliveryNumber),\n\t\tComments = \"Not Applicable\") ~> InjectDetailsForDuplicateRecord\nFlattenSepaPmtArray split(!isNull(byName('processingType')) && !isNull(byName('paymentReference')) && !isNull(byName('IBANClient')) && iif(length(toString(byName('IBANClient')))==0,false(),true()) && iif(length(toString(byName('processingType')))==0,false(),true()) && iif(length(toString(byName('paymentReference')))==0,false(),true()),\n\tdisjoint: false) ~> ConditionalSplit5@(KeyValuesNotNull, KeyValuesNull)\nConditionalSplit5@KeyValuesNull aggregate(FailedRecords = collect(incrementalRecord),\n\t\teach(match(in(array('RunDate'),name)), $$ = first($$))) ~> AggregateAllRecords\nConditionalSplit7@success alterRow(updateIf(true())) ~> AlterRowForKeyFieldsNull\nAggregateAllRecords derive(FileName = $FileName,\n\t\tid = $UniqueId,\n\t\tStatus = \"Failed\",\n\t\tFailureReason = concat('Pipeline Failed. Incremental Records : ',toString(FailedRecords), ' is/are having Null/Empty values for Key Fields.')) ~> InjectStatus\nConditionalSplit6@RunDateNull derive(Status = \"Failed\",\n\t\tFailureReason = concat('Pipeline Failed. RunDate is Null/Empty/Invalid. FileName : ',$FileName,'. SequenceNumber : ',DeliveryNumber.deliveryNumber),\n\t\tCurrentDate = $CurrentDate,\n\t\tComments = \"Not Applicable\") ~> InjectStatusFieldsForRunDateValidation\nInjectFields split(!isNull(Date) && iif(length(Date) == 0,false(),true()) && !isNull(coalesce(toDate(Date,'yyyy-MM-dd'))),\n\tdisjoint: false) ~> ConditionalSplit6@(RunDateNotNull, RunDateNull)\nInjectStatus split(iif(size(FailedRecords)>0, true(), false()),\n\tdisjoint: false) ~> ConditionalSplit7@(success, Failure)\nConditionalSplit6@RunDateNotNull split(!isNull(versionNumber) && iif(length(versionNumber) == 0,false(),true()),\n\tdisjoint: false) ~> ValidateVersionNumber@(ValidVersionNumber, InValidVersionNumber)\nValidateVersionNumber@InValidVersionNumber derive(Status = \"Failed\",\n\t\tFailureReason = concat('Pipeline Failed. versionNumber is Null/Empty/Invalid. FileName : ',$FileName,'. SequenceNumber : ',DeliveryNumber.deliveryNumber),\n\t\tComments = \"Not Applicable\") ~> InjectVersionNumberFailureFields\nConditionalSplit@SinglePayments sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/PartitionKey'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SEPASinglePayments\nConditionalSplit@BatchHeader sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/PartitionKey'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SEPABatchHeader\nConditionalSplit@BatchPayments sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/PartitionKey'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SEPABatchPayments\nInjectCorrectSequence sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tmapColumn(\n\t\tSequenceNumber,\n\t\tRunDate = SepaData.Header.runDate,\n\t\tNoOfRecords = NoOfRecords.noOfRecords,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tFileName,\n\t\tStatus,\n\t\tArrayCount,\n\t\tFailureReason,\n\t\tid,\n\t\tComments,\n\t\tIsSequenceCorrect\n\t)) ~> CorrectSequence\nAlterRowForNonEmptyFile sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tmapColumn(\n\t\tSequenceNumber,\n\t\tRunDate = SepaData.Header.runDate,\n\t\tNoOfRecords = SepaData.Trailer.noOfRecords,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tArrayCount,\n\t\tStatus,\n\t\tFailureReason,\n\t\tFileName,\n\t\tid\n\t)) ~> UpdateValidationFailure\nInjectSequenceMisMatchField sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tmapColumn(\n\t\tRunDate = SepaData.Header.runDate,\n\t\tNoOfRecords = NoOfRecords.noOfRecords,\n\t\tSequenceNumber,\n\t\tArrayCount,\n\t\tFileName,\n\t\tStatus,\n\t\tFailureReason,\n\t\tIsSequenceCorrect,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tExpectedSequenceNumber,\n\t\tid,\n\t\tComments\n\t)) ~> UpdateSequenceMisMatch\nAlterRowForEmptyFile sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tmapColumn(\n\t\tSequenceNumber,\n\t\tRunDate = SepaData.Header.runDate,\n\t\tNoOfRecords = NoOfRecords.noOfRecords,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tFileName,\n\t\tArrayCount,\n\t\tStatus,\n\t\tComments,\n\t\tid\n\t)) ~> UpdateEmptyFileComment\nInjectDetailsForDuplicateRecord sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tmapColumn(\n\t\tRunDate = SepaData.Header.runDate,\n\t\tNoOfRecords = SepaData.Trailer.noOfRecords,\n\t\tEndofDay = EndofDay.endofDay,\n\t\tFileName,\n\t\tid,\n\t\tSequenceNumber,\n\t\tStatus,\n\t\tFailureReason,\n\t\tComments\n\t)) ~> DuplicateRecord\nAlterRowForKeyFieldsNull sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tmapColumn(\n\t\tRunDate,\n\t\tFileName,\n\t\tid,\n\t\tStatus,\n\t\tFailureReason\n\t)) ~> KeyFieldsNull\nInjectStatusFieldsForRunDateValidation sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tsaveOrder: 1,\n\tmapColumn(\n\t\tRunDate = CurrentDate,\n\t\tNoOfRecords = NoOfRecords.noOfRecords,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tFileName,\n\t\tid,\n\t\tSequenceNumber,\n\t\tStatus,\n\t\tFailureReason,\n\t\tComments\n\t)) ~> RunDateNull\nInjectVersionNumberFailureFields sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'document',\n\tpartitionKey: ['/RunDate'],\n\tmapColumn(\n\t\tRunDate = RunDate.runDate,\n\t\tNoOfRecords = NoOfRecords.noOfRecords,\n\t\tEndOfDay = EndofDay.endofDay,\n\t\tFileName,\n\t\tid,\n\t\tSequenceNumber,\n\t\tStatus,\n\t\tFailureReason,\n\t\tComments\n\t)) ~> InValidVersionNumber"
+		}
+	}
+}

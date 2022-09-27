@@ -1,0 +1,79 @@
+{
+	"name": "InputData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Test.json",
+				"container": "adftutorial"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"SepaData": {
+					"type": "object",
+					"properties": {
+						"Header": {
+							"type": "object",
+							"properties": {
+								"runDate": {
+									"type": "string"
+								},
+								"deliveryNumber": {
+									"type": "string"
+								},
+								"versionNumber": {
+									"type": "string"
+								}
+							}
+						},
+						"SepaPmt": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"incrementalRecord": {
+										"type": "integer"
+									},
+									"IBANClient": {
+										"type": "string"
+									},
+									"processingType": {
+										"type": "string"
+									},
+									"paymentReference": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"Trailer": {
+							"type": "object",
+							"properties": {
+								"noOfRecords": {
+									"type": "integer"
+								},
+								"endofDay": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
