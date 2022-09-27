@@ -52,7 +52,7 @@
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('roundRobin', 4)) ~> sink1"
+				"     partitionBy('roundRobin', 101)) ~> sink1"
 			]
 		}
 	}
