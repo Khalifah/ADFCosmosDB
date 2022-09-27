@@ -15,7 +15,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Test.json",
+				"fileName": "student.csv",
+				"folderPath": "roundrobin",
 				"container": "adftutorial"
 			}
 		},

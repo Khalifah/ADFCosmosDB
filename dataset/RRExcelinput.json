@@ -1,0 +1,103 @@
+{
+	"name": "RRExcelinput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "student",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "student_excel.xlsx",
+				"folderPath": "roundrobin",
+				"container": "adftutorial"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "StudentID",
+				"type": "String"
+			},
+			{
+				"name": "StudentName",
+				"type": "String"
+			},
+			{
+				"name": "MentorID",
+				"type": "String"
+			},
+			{
+				"name": "DateofBirth",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Longtitude",
+				"type": "String"
+			},
+			{
+				"name": "Latitude",
+				"type": "String"
+			},
+			{
+				"name": "Guardian",
+				"type": "String"
+			},
+			{
+				"name": "ContactNumber",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "SchoolEnrolled ",
+				"type": "String"
+			},
+			{
+				"name": "StartDate",
+				"type": "String"
+			},
+			{
+				"name": "SpokenLanguage ",
+				"type": "String"
+			},
+			{
+				"name": "WrittenLanguage ",
+				"type": "String"
+			},
+			{
+				"name": "Favoritesubject",
+				"type": "String"
+			},
+			{
+				"name": "CareerAspiration",
+				"type": "String"
+			},
+			{
+				"name": "Background",
+				"type": "String"
+			},
+			{
+				"name": "ContactEmail",
+				"type": "String"
+			}
+		]
+	}
+}
