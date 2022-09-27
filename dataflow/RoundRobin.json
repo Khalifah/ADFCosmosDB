@@ -52,7 +52,9 @@
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('roundRobin', 114)) ~> sink1"
+				"     partitionBy('hash', 2,",
+				"          StudentID",
+				"     )) ~> sink1"
 			]
 		}
 	}
