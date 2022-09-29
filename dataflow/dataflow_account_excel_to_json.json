@@ -30,7 +30,7 @@
 					},
 					"name": "SinkValidation",
 					"rejectedDataLinkedService": {
-						"referenceName": "blob_storage",
+						"referenceName": "AzureBlobStorageForCosmos",
 						"type": "LinkedServiceReference"
 					}
 				}

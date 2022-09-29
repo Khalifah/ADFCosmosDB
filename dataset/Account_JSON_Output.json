@@ -1,0 +1,25 @@
+{
+	"name": "Account_JSON_Output",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blob_storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "jupiter/JSON"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@concat('jupiter/output/', formatDateTime(utcnow(), 'yyyy-MM-dd'), '/account/result')",
+					"type": "Expression"
+				},
+				"container": "data-factory"
+			}
+		},
+		"schema": {}
+	}
+}

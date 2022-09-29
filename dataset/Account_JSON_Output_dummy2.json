@@ -1,0 +1,86 @@
+{
+	"name": "Account_JSON_Output_dummy2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "jupiter/JSON"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "roundrobin/Output/Jsonout2",
+				"container": "adftutorial"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"StudentID": {
+					"type": "string"
+				},
+				"StudentName": {
+					"type": "string"
+				},
+				"MentorID": {
+					"type": "string"
+				},
+				"DateofBirth": {
+					"type": "string"
+				},
+				"Gender": {
+					"type": "string"
+				},
+				"City": {
+					"type": "string"
+				},
+				"Country": {
+					"type": "string"
+				},
+				"Longtitude": {
+					"type": "string"
+				},
+				"Latitude": {
+					"type": "string"
+				},
+				"Guardian": {
+					"type": "string"
+				},
+				"ContactNumber": {
+					"type": "string"
+				},
+				"Address": {
+					"type": "string"
+				},
+				"SchoolEnrolled ": {
+					"type": "string"
+				},
+				"StartDate": {
+					"type": "string"
+				},
+				"SpokenLanguage ": {
+					"type": "string"
+				},
+				"WrittenLanguage ": {
+					"type": "string"
+				},
+				"Favoritesubject": {
+					"type": "string"
+				},
+				"CareerAspiration": {
+					"type": "string"
+				},
+				"Background": {
+					"type": "string"
+				},
+				"ContactEmail": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
