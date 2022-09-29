@@ -1,0 +1,710 @@
+{
+	"name": "AccountExcelDummy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "jupiter/Excel"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Dummy_Account_Headers.xlsx",
+				"folderPath": "roundrobin",
+				"container": "adftutorial"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "SOURCE SYSTEM ID",
+				"type": "String"
+			},
+			{
+				"name": "Overlapping Account",
+				"type": "String"
+			},
+			{
+				"name": "Original Source System Id",
+				"type": "String"
+			},
+			{
+				"name": "ACCOUNT GCI CODE",
+				"type": "String"
+			},
+			{
+				"name": "Parent GCI Code",
+				"type": "String"
+			},
+			{
+				"name": "Parent Account Name",
+				"type": "String"
+			},
+			{
+				"name": "Parent Account GUID",
+				"type": "String"
+			},
+			{
+				"name": "GUP Parent Account Name",
+				"type": "String"
+			},
+			{
+				"name": "GUP Parent Account GCI Code",
+				"type": "String"
+			},
+			{
+				"name": "GUP Parent Account GUID",
+				"type": "String"
+			},
+			{
+				"name": "OWNER GUID",
+				"type": "String"
+			},
+			{
+				"name": "OWNER EMPLOYEE CODES",
+				"type": "String"
+			},
+			{
+				"name": "Account GUID",
+				"type": "String"
+			},
+			{
+				"name": "OWNER EMAIL",
+				"type": "String"
+			},
+			{
+				"name": "Local LCSP Email",
+				"type": "String"
+			},
+			{
+				"name": "LCSP Employee Code",
+				"type": "String"
+			},
+			{
+				"name": "OWNER LASTNAME",
+				"type": "String"
+			},
+			{
+				"name": "OWNER FIRSTNAME",
+				"type": "String"
+			},
+			{
+				"name": "GUP Client Group",
+				"type": "String"
+			},
+			{
+				"name": "DAG",
+				"type": "String"
+			},
+			{
+				"name": "Owner Id",
+				"type": "String"
+			},
+			{
+				"name": "Account Name",
+				"type": "String"
+			},
+			{
+				"name": "Record Type",
+				"type": "String"
+			},
+			{
+				"name": "Parent Id",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Street",
+				"type": "String"
+			},
+			{
+				"name": "Shipping City",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Postal Code",
+				"type": "String"
+			},
+			{
+				"name": "Shipping State Code",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Country",
+				"type": "String"
+			},
+			{
+				"name": "Industry",
+				"type": "String"
+			},
+			{
+				"name": "DGMF Id",
+				"type": "String"
+			},
+			{
+				"name": "DUNS Id",
+				"type": "String"
+			},
+			{
+				"name": "Program",
+				"type": "String"
+			},
+			{
+				"name": "Sector",
+				"type": "String"
+			},
+			{
+				"name": "Client Type",
+				"type": "String"
+			},
+			{
+				"name": "GUP Account Code",
+				"type": "String"
+			},
+			{
+				"name": "Activated Member Firm",
+				"type": "String"
+			},
+			{
+				"name": "Source Active Flag",
+				"type": "String"
+			},
+			{
+				"name": "Sub Sector",
+				"type": "String"
+			},
+			{
+				"name": "Client HQ",
+				"type": "String"
+			},
+			{
+				"name": "Live in",
+				"type": "String"
+			},
+			{
+				"name": "Access type",
+				"type": "String"
+			},
+			{
+				"name": "Processing Status",
+				"type": "String"
+			},
+			{
+				"name": "Number of Employees",
+				"type": "String"
+			},
+			{
+				"name": "Person Account",
+				"type": "String"
+			},
+			{
+				"name": "Alternative names",
+				"type": "String"
+			},
+			{
+				"name": "Local LCSP",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Website",
+				"type": "String"
+			},
+			{
+				"name": "Responsible Office",
+				"type": "String"
+			},
+			{
+				"name": "Company Ownership Level 1",
+				"type": "String"
+			},
+			{
+				"name": "Company Ownership Level 2",
+				"type": "String"
+			},
+			{
+				"name": "Company Ownership Level 3",
+				"type": "String"
+			},
+			{
+				"name": "ABN",
+				"type": "String"
+			},
+			{
+				"name": "ACN",
+				"type": "String"
+			},
+			{
+				"name": "DESC Designation",
+				"type": "String"
+			},
+			{
+				"name": "English Account Name",
+				"type": "String"
+			},
+			{
+				"name": "English Contracting Entity Address",
+				"type": "String"
+			},
+			{
+				"name": "Business Registration Number",
+				"type": "String"
+			},
+			{
+				"name": "Business Registration Type",
+				"type": "String"
+			},
+			{
+				"name": "GCI Code Update Date",
+				"type": "String"
+			},
+			{
+				"name": "Account Id",
+				"type": "String"
+			},
+			{
+				"name": "SIC Code",
+				"type": "String"
+			},
+			{
+				"name": "SIC Name",
+				"type": "String"
+			},
+			{
+				"name": "VAT Geography",
+				"type": "String"
+			},
+			{
+				"name": "VAT ID",
+				"type": "String"
+			},
+			{
+				"name": "MDM ID",
+				"type": "String"
+			},
+			{
+				"name": "MDM SYNC",
+				"type": "String"
+			},
+			{
+				"name": "Company Code",
+				"type": "String"
+			},
+			{
+				"name": "Client Account Segmentation (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Industry (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Sub - Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Industry (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Parent Account (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Parent Client Industry (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Parent Client Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Parent Client Sub - Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "Sub - Sector (US) ",
+				"type": "String"
+			},
+			{
+				"name": "SWIFT Client ID",
+				"type": "String"
+			},
+			{
+				"name": "GPS Client Account",
+				"type": "String"
+			},
+			{
+				"name": "GPS Division",
+				"type": "String"
+			},
+			{
+				"name": "GPS Sector",
+				"type": "String"
+			},
+			{
+				"name": "GPS Sub Sector",
+				"type": "String"
+			},
+			{
+				"name": "Growth Segment",
+				"type": "String"
+			},
+			{
+				"name": "Sub Segment",
+				"type": "String"
+			},
+			{
+				"name": "Abbreviated Name",
+				"type": "String"
+			},
+			{
+				"name": "Advisory Last Reviewed Date",
+				"type": "String"
+			},
+			{
+				"name": "Advisory MBR Checked Date",
+				"type": "String"
+			},
+			{
+				"name": "Advisory MBR Watchlist",
+				"type": "String"
+			},
+			{
+				"name": "Advisory Market Offering",
+				"type": "String"
+			},
+			{
+				"name": "Advisory Notes",
+				"type": "String"
+			},
+			{
+				"name": "Advisory Watchlist Priority",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Last Reviewed Date",
+				"type": "String"
+			},
+			{
+				"name": "Consulting MBR Checked Date",
+				"type": "String"
+			},
+			{
+				"name": "Consulting MBR Watchlist",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Network",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Notes",
+				"type": "String"
+			},
+			{
+				"name": "Consulting Watchlist Priority",
+				"type": "String"
+			},
+			{
+				"name": "Deloitte Margin Target (%) ",
+				"type": "String"
+			},
+			{
+				"name": "Deloitte Margin Threshold (%) ",
+				"type": "String"
+			},
+			{
+				"name": "Deloitte Purchase Discount (%) ",
+				"type": "String"
+			},
+			{
+				"name": "Domain",
+				"type": "String"
+			},
+			{
+				"name": "Inactive Date",
+				"type": "String"
+			},
+			{
+				"name": "Independence Clearance?",
+				"type": "String"
+			},
+			{
+				"name": "Is Provider?",
+				"type": "String"
+			},
+			{
+				"name": "Is Supplier?",
+				"type": "String"
+			},
+			{
+				"name": "Legal Name - Resell Contracts",
+				"type": "String"
+			},
+			{
+				"name": "Number of Contacts",
+				"type": "String"
+			},
+			{
+				"name": "Parent Legal Entity",
+				"type": "String"
+			},
+			{
+				"name": "Point of Contact",
+				"type": "String"
+			},
+			{
+				"name": "Provider Quote Name",
+				"type": "String"
+			},
+			{
+				"name": "Public / Private",
+				"type": "String"
+			},
+			{
+				"name": "Resell Comments",
+				"type": "String"
+			},
+			{
+				"name": "Restrict Access to this Account",
+				"type": "String"
+			},
+			{
+				"name": "Sell To",
+				"type": "String"
+			},
+			{
+				"name": "Supplier Quote Name",
+				"type": "String"
+			},
+			{
+				"name": "Tax Last Reviewed Date",
+				"type": "String"
+			},
+			{
+				"name": "Tax MBR Checked Date",
+				"type": "String"
+			},
+			{
+				"name": "Tax MBR Watchlist",
+				"type": "String"
+			},
+			{
+				"name": "Tax Notes",
+				"type": "String"
+			},
+			{
+				"name": "Tax Watchlist Priority",
+				"type": "String"
+			},
+			{
+				"name": "EGC Strategic Investor (US)",
+				"type": "String"
+			},
+			{
+				"name": "Lead Portfolio Partner (US)",
+				"type": "String"
+			},
+			{
+				"name": "M&A Relationship PPMD (US)",
+				"type": "String"
+			},
+			{
+				"name": "Audit NR 2 Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Audit NR Current FY YTD (US)",
+				"type": "String"
+			},
+			{
+				"name": "Audit NR Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Consulting NR 2 Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Consulting NR Current FY YTD (US)",
+				"type": "String"
+			},
+			{
+				"name": "Consulting NR Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "FY17 Relationship (US)",
+				"type": "String"
+			},
+			{
+				"name": "RFA NR 2 Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "RFA NR Current FY YTD (US)",
+				"type": "String"
+			},
+			{
+				"name": "RFA NR Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Tax NR 2 Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Tax NR Current FY YTD (US)",
+				"type": "String"
+			},
+			{
+				"name": "Tax NR Previous FY (US)",
+				"type": "String"
+			},
+			{
+				"name": "Local Parent Account",
+				"type": "String"
+			},
+			{
+				"name": "Error Message",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "region",
+				"type": "String"
+			},
+			{
+				"name": "gupSICName",
+				"type": "String"
+			},
+			{
+				"name": "DTTL Geography",
+				"type": "String"
+			},
+			{
+				"name": "All Confidential Opportunities",
+				"type": "String"
+			},
+			{
+				"name": "Address State Province Name",
+				"type": "String"
+			},
+			{
+				"name": "Address Country Code",
+				"type": "String"
+			},
+			{
+				"name": "gupEnglishAccountName",
+				"type": "String"
+			},
+			{
+				"name": "gupIndustry",
+				"type": "String"
+			},
+			{
+				"name": "gupSubSector",
+				"type": "String"
+			},
+			{
+				"name": "gupSector",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.created",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdBy",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModified",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModifiedBy",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdEmployeeCode",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.modifiedEmployeeCode",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdBy.email",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdBy.firstName",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdBy.lastName",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.createdBy.country",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModifiedBy.email",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModifiedBy.firstName",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModifiedBy.lastName",
+				"type": "String"
+			},
+			{
+				"name": "versionHistory.lastModifiedBy.country",
+				"type": "String"
+			},
+			{
+				"name": "Owner.email",
+				"type": "String"
+			},
+			{
+				"name": "Owner.firstName",
+				"type": "String"
+			},
+			{
+				"name": "Owner.lastName",
+				"type": "String"
+			},
+			{
+				"name": "Owner.country",
+				"type": "String"
+			}
+		]
+	}
+}
