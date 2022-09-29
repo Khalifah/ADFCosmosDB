@@ -450,7 +450,7 @@
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('roundRobin', 10)) ~> SinkAccountJSON",
+				"     partitionBy('roundRobin', 48)) ~> SinkAccountJSON",
 				"assertMandatoryFields sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
