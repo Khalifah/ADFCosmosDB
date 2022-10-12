@@ -1,0 +1,26 @@
+{
+	"name": "TR_FINANCE_FMPO_DAILY_D2345",
+	"properties": {
+		"description": "Trigger which runs daily at 11:45 AM",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-06-21T06:27:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						45
+					],
+					"hours": [
+						11
+					]
+				}
+			}
+		}
+	}
+}

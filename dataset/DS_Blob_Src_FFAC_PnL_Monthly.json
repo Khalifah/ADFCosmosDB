@@ -1,0 +1,872 @@
+{
+	"name": "DS_Blob_Src_FFAC_PnL_Monthly",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_NGBS_StagingBLOB",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "ngbs-ffac"
+			},
+			"columnDelimiter": ",",
+			"encodingName": "WINDOWS-1252",
+			"escapeChar": "\"",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Area",
+				"type": "String"
+			},
+			{
+				"name": "AreaDesc",
+				"type": "String"
+			},
+			{
+				"name": "Geo",
+				"type": "String"
+			},
+			{
+				"name": "GeoDesc",
+				"type": "String"
+			},
+			{
+				"name": "SubGeo",
+				"type": "String"
+			},
+			{
+				"name": "SubgeoDesc",
+				"type": "String"
+			},
+			{
+				"name": "Mgmtctry",
+				"type": "String"
+			},
+			{
+				"name": "MgmtctryDesc",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "ProdgrpDesc",
+				"type": "String"
+			},
+			{
+				"name": "BusSeg",
+				"type": "String"
+			},
+			{
+				"name": "SegDesc",
+				"type": "String"
+			},
+			{
+				"name": "SubSeg",
+				"type": "String"
+			},
+			{
+				"name": "SubsegDesc",
+				"type": "String"
+			},
+			{
+				"name": "SubSubSeg",
+				"type": "String"
+			},
+			{
+				"name": "SubsubsegDesc",
+				"type": "String"
+			},
+			{
+				"name": "Company",
+				"type": "String"
+			},
+			{
+				"name": "CompanyName",
+				"type": "String"
+			},
+			{
+				"name": "Location",
+				"type": "String"
+			},
+			{
+				"name": "LocationDesc",
+				"type": "String"
+			},
+			{
+				"name": "AccountUnit",
+				"type": "String"
+			},
+			{
+				"name": "AcctUnitDesc",
+				"type": "String"
+			},
+			{
+				"name": "MgmtNIS/BLSummaryAcct",
+				"type": "String"
+			},
+			{
+				"name": "SummaryAcct",
+				"type": "String"
+			},
+			{
+				"name": "SummaryAcctDesc",
+				"type": "String"
+			},
+			{
+				"name": "Account",
+				"type": "String"
+			},
+			{
+				"name": "SubAccount",
+				"type": "String"
+			},
+			{
+				"name": "AccountDesc",
+				"type": "String"
+			},
+			{
+				"name": "FiscalYear",
+				"type": "String"
+			},
+			{
+				"name": "Date",
+				"type": "String"
+			},
+			{
+				"name": "AccountingPeriod",
+				"type": "String"
+			},
+			{
+				"name": "UpdateDate",
+				"type": "String"
+			},
+			{
+				"name": "SeqTrnsNbr",
+				"type": "String"
+			},
+			{
+				"name": "PostingDate",
+				"type": "String"
+			},
+			{
+				"name": "OrigCompany",
+				"type": "String"
+			},
+			{
+				"name": "Activity",
+				"type": "String"
+			},
+			{
+				"name": "SourceCode",
+				"type": "String"
+			},
+			{
+				"name": "System",
+				"type": "String"
+			},
+			{
+				"name": "JeType",
+				"type": "String"
+			},
+			{
+				"name": "Journal",
+				"type": "String"
+			},
+			{
+				"name": "LineNbr",
+				"type": "String"
+			},
+			{
+				"name": "JeSequence",
+				"type": "String"
+			},
+			{
+				"name": "AutoRev",
+				"type": "String"
+			},
+			{
+				"name": "GltBook",
+				"type": "String"
+			},
+			{
+				"name": "Operator",
+				"type": "String"
+			},
+			{
+				"name": "LegalFiscalFlag",
+				"type": "String"
+			},
+			{
+				"name": "Reference",
+				"type": "String"
+			},
+			{
+				"name": "ARBatchNbr",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "CurrencyCode",
+				"type": "String"
+			},
+			{
+				"name": "TranAmount",
+				"type": "String"
+			},
+			{
+				"name": "BaseAmount",
+				"type": "String"
+			},
+			{
+				"name": "CBTransNbr",
+				"type": "String"
+			},
+			{
+				"name": "Vendor",
+				"type": "String"
+			},
+			{
+				"name": "VendorVname",
+				"type": "String"
+			},
+			{
+				"name": "ApInvoice",
+				"type": "String"
+			},
+			{
+				"name": "TransNbr",
+				"type": "String"
+			},
+			{
+				"name": "OrigOperatorId",
+				"type": "String"
+			},
+			{
+				"name": "ProcessLevel",
+				"type": "String"
+			},
+			{
+				"name": "CashCode",
+				"type": "String"
+			},
+			{
+				"name": "PoNumber",
+				"type": "String"
+			},
+			{
+				"name": "LineNbrIc",
+				"type": "String"
+			},
+			{
+				"name": "PoRelease",
+				"type": "String"
+			},
+			{
+				"name": "PoCode",
+				"type": "String"
+			},
+			{
+				"name": "LineNbrPo",
+				"type": "String"
+			},
+			{
+				"name": "Asset",
+				"type": "String"
+			},
+			{
+				"name": "AssetCode",
+				"type": "String"
+			},
+			{
+				"name": "AstSerialNbr",
+				"type": "String"
+			},
+			{
+				"name": "ManagementControlGrp",
+				"type": "String"
+			},
+			{
+				"name": "ManagementOperator",
+				"type": "String"
+			},
+			{
+				"name": "AcctTreatment",
+				"type": "String"
+			},
+			{
+				"name": "CommercialAgreement",
+				"type": "String"
+			},
+			{
+				"name": "ItemDescription",
+				"type": "String"
+			},
+			{
+				"name": "OrderNumber",
+				"type": "String"
+			},
+			{
+				"name": "CustomerNumber",
+				"type": "String"
+			},
+			{
+				"name": "CustomerName",
+				"type": "String"
+			},
+			{
+				"name": "ArInvoice",
+				"type": "String"
+			},
+			{
+				"name": "CustPONbr",
+				"type": "String"
+			},
+			{
+				"name": "SatFolioNumber",
+				"type": "String"
+			},
+			{
+				"name": "OrigARInvoice",
+				"type": "String"
+			},
+			{
+				"name": "ApprovalDateAndTime",
+				"type": "String"
+			},
+			{
+				"name": "TaxCode",
+				"type": "String"
+			},
+			{
+				"name": "MgtLineNbr",
+				"type": "String"
+			},
+			{
+				"name": "MgtAccount",
+				"type": "String"
+			},
+			{
+				"name": "MgtSubAccount",
+				"type": "String"
+			},
+			{
+				"name": "OriginatingCompany",
+				"type": "String"
+			},
+			{
+				"name": "Item",
+				"type": "String"
+			},
+			{
+				"name": "DocumentNbr",
+				"type": "String"
+			},
+			{
+				"name": "ContractNumber",
+				"type": "String"
+			},
+			{
+				"name": "AktOfAcceptance",
+				"type": "String"
+			},
+			{
+				"name": "AktDate",
+				"type": "String"
+			},
+			{
+				"name": "ApTransFormId",
+				"type": "String"
+			},
+			{
+				"name": "Urn",
+				"type": "String"
+			},
+			{
+				"name": "GltObjId",
+				"type": "String"
+			},
+			{
+				"name": "EcarJaf",
+				"type": "String"
+			},
+			{
+				"name": "ApSuffix",
+				"type": "String"
+			},
+			{
+				"name": "ApCancelSequence",
+				"type": "String"
+			},
+			{
+				"name": "ApiObjId",
+				"type": "String"
+			},
+			{
+				"name": "DistSequenceNum",
+				"type": "String"
+			},
+			{
+				"name": "ApMunicipality",
+				"type": "String"
+			},
+			{
+				"name": "ApFisInvoiceType",
+				"type": "String"
+			},
+			{
+				"name": "FisInvoiceNum",
+				"type": "String"
+			},
+			{
+				"name": "ApFisInvoiceDate",
+				"type": "String"
+			},
+			{
+				"name": "ApVendorTaxId",
+				"type": "String"
+			},
+			{
+				"name": "ApSLBTaxId",
+				"type": "String"
+			},
+			{
+				"name": "ApImportDeclaration",
+				"type": "String"
+			},
+			{
+				"name": "ApAOCCurrency",
+				"type": "String"
+			},
+			{
+				"name": "ApCustomsInvoice",
+				"type": "String"
+			},
+			{
+				"name": "ApCustomsDuties",
+				"type": "String"
+			},
+			{
+				"name": "ApFreight",
+				"type": "String"
+			},
+			{
+				"name": "ApInsurance",
+				"type": "String"
+			},
+			{
+				"name": "ApStorage",
+				"type": "String"
+			},
+			{
+				"name": "ApBrokerage",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld1",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld2",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld3",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld4",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld5",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld6",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld7",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld8",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld9",
+				"type": "String"
+			},
+			{
+				"name": "ApFisFld10",
+				"type": "String"
+			},
+			{
+				"name": "ApFiscalItemType",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlAOCCurrency",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlCustomsDuties",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFreight",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlInsurance",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlStorage",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlBrokerage",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld1",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld2",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld3",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld4",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld5",
+				"type": "String"
+			},
+			{
+				"name": "ApDtlFisFld6",
+				"type": "String"
+			},
+			{
+				"name": "ArInvoicePrefix",
+				"type": "String"
+			},
+			{
+				"name": "ArInvoiceNumber",
+				"type": "String"
+			},
+			{
+				"name": "ArCustomer",
+				"type": "String"
+			},
+			{
+				"name": "ArCountry",
+				"type": "String"
+			},
+			{
+				"name": "ArMunicipality",
+				"type": "String"
+			},
+			{
+				"name": "ArSLBTaxId",
+				"type": "String"
+			},
+			{
+				"name": "ArCustTaxId",
+				"type": "String"
+			},
+			{
+				"name": "ArFiscalRefDate",
+				"type": "String"
+			},
+			{
+				"name": "ArMiscInvcNbr",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCurrency",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode01",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria01",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate01",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount01",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount01",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode02",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria02",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate02",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount02",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount02",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode03",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria03",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate03",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount03",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount03",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode04",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria04",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate04",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount04",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount04",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode05",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria05",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate05",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount05",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount05",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode06",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria06",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate06",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount06",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount06",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode07",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria07",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate07",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount07",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount07",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCode08",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxCriteria08",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxRate08",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxableAmount08",
+				"type": "String"
+			},
+			{
+				"name": "ArTaxAmount08",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld1",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld2",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld3",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld4",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld5",
+				"type": "String"
+			},
+			{
+				"name": "ArFisFld6",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlLineNbr",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlItem",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlAmount",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlSlsAccount",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlSubAccount",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld1",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld2",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld3",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld4",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld5",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld6",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld7",
+				"type": "String"
+			},
+			{
+				"name": "ArDtlFisFld8",
+				"type": "String"
+			},
+			{
+				"name": "DistUserFld4",
+				"type": "String"
+			},
+			{
+				"name": "DistUserFld5",
+				"type": "String"
+			},
+			{
+				"name": "LegalSeqNum",
+				"type": "String"
+			},
+			{
+				"name": "JVUserField01",
+				"type": "String"
+			},
+			{
+				"name": "AttributeField03",
+				"type": "String"
+			},
+			{
+				"name": "MgmtGltObjId",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

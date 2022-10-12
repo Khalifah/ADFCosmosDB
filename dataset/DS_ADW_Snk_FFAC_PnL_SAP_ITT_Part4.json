@@ -1,0 +1,322 @@
+{
+	"name": "DS_ADW_Snk_FFAC_PnL_SAP_ITT_Part4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADW_FIELDCOREDATA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "TranAmount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "BaseAmount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "VendorVname",
+				"type": "char"
+			},
+			{
+				"name": "Vendor",
+				"type": "char"
+			},
+			{
+				"name": "CurrencyCode",
+				"type": "char"
+			},
+			{
+				"name": "System",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceCode",
+				"type": "varchar"
+			},
+			{
+				"name": "PoNumber",
+				"type": "char"
+			},
+			{
+				"name": "InvoiceNo",
+				"type": "varchar"
+			},
+			{
+				"name": "PostingDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Journal",
+				"type": "char"
+			},
+			{
+				"name": "Description",
+				"type": "varchar"
+			},
+			{
+				"name": "LineNbr",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Company_Desc",
+				"type": "varchar"
+			},
+			{
+				"name": "Company",
+				"type": "char"
+			},
+			{
+				"name": "CountryDesc",
+				"type": "varchar"
+			},
+			{
+				"name": "Mgmt_Country_Code",
+				"type": "char"
+			},
+			{
+				"name": "Account",
+				"type": "char"
+			},
+			{
+				"name": "AccountDesc",
+				"type": "varchar"
+			},
+			{
+				"name": "NIS_Desc",
+				"type": "varchar"
+			},
+			{
+				"name": "Profit_Center_Desc",
+				"type": "varchar"
+			},
+			{
+				"name": "Profit_Center",
+				"type": "char"
+			},
+			{
+				"name": "CCAU",
+				"type": "char"
+			},
+			{
+				"name": "CCAU_Desc",
+				"type": "varchar"
+			},
+			{
+				"name": "User_Gin",
+				"type": "char"
+			},
+			{
+				"name": "Reversed_Flag",
+				"type": "char"
+			},
+			{
+				"name": "Reference_Document",
+				"type": "char"
+			},
+			{
+				"name": "Transaction_Code",
+				"type": "char"
+			},
+			{
+				"name": "Transaction_Code_Description",
+				"type": "char"
+			},
+			{
+				"name": "LDAP_User_Alias",
+				"type": "varchar"
+			},
+			{
+				"name": "Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Area_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SYS_CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SYS_CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Country_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Right_Country_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SubAccnt_Minor",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Year",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Month",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_Data",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_UID_SPEND",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_UID_ZEROIZATION",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NIS_SubLine",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_UID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_Status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_Type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_Owner",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Latitude",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Longitude",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Origin_Business",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Business_Activity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FDE_Country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FDE_City",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Land_Area_Square_Meter",
+				"type": "decimal",
+				"precision": 24,
+				"scale": 0
+			},
+			{
+				"name": "Build_Area_Square_Meter",
+				"type": "decimal",
+				"precision": 24,
+				"scale": 0
+			},
+			{
+				"name": "Account_Type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "GL_Account",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Account_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Facility_Assigned",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ExcludeCountry",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "NGBS",
+			"table": "FFAC_PnL_SapITT_Temp_Part4"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,299 @@
+{
+	"name": "PL_FFAC_PnL_Master",
+	"properties": {
+		"activities": [
+			{
+				"name": "PnL Data flow1 XR222",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "PL_FFAC_MoveFiles_FS_to_Blob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_FFAC_PnL_Monthly_Part1",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SrcLawsonMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcGLAccountMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "LS_NGBS_StagingBLOB",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "ngbs-logs"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"sourceStagingConcurrency": 1
+				}
+			},
+			{
+				"name": "Data flow2 Lawson",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "PnL Data flow1 XR222",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_FFAC_PnL_Monthly_Part2",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SrcFacilitiesMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcZeroizationAccount": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "LS_NGBS_StagingBLOB",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "ngbs-logs"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"sourceStagingConcurrency": 1
+				}
+			},
+			{
+				"name": "Data flow4 Sap ITT",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Data flow 3 Oracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_FFAC_PnL_Monthly_Part4",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SrcSAPITTGLTransaciton": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcZeroizationAccount": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcSapITTMappinng": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcOrgSapITT": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "LS_NGBS_StagingBLOB",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "ngbs-logs"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"sourceStagingConcurrency": 1
+				}
+			},
+			{
+				"name": "Data flow5 Final",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Data flow4 Sap ITT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_FFAC_PnL_Monthly_Part5",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SrcFacilitiesMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcOrgLawsonMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcOrgOracleMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcNISStandard": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcNonFacMapping": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "LS_NGBS_StagingBLOB",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "ngbs-logs"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"sourceStagingConcurrency": 1
+				}
+			},
+			{
+				"name": "PL_FFAC_MoveFiles_FS_to_Blob",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_FFAC_MoveFiles_FS_to_Blob",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Data flow 3 Oracle",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Data flow2 Lawson",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_FFAC_PnL_Part3",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SrcOracleSourceNew": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcZeroizationAccount": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcOrgMappingOracle": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							},
+							"SrcNISMappingOracle": {
+								"TableName": "TableName",
+								"SchemaName": "SchemaName"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "LS_NGBS_StagingBLOB",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "ngbs-logs"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"sourceStagingConcurrency": 1
+				}
+			}
+		],
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T08:46:16Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

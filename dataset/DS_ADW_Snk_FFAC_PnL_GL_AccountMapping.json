@@ -1,0 +1,33 @@
+{
+	"name": "DS_ADW_Snk_FFAC_PnL_GL_AccountMapping",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADW_FIELDCOREDATA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "ERP",
+				"type": "char"
+			},
+			{
+				"name": "SubAccnt_Minor",
+				"type": "varchar"
+			},
+			{
+				"name": "PnL_Sub_group",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "NGBS",
+			"table": "SRC_FI_SPO_FSPO_GL_Accounts_Mapping_part1_temp"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

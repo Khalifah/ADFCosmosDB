@@ -1,0 +1,47 @@
+{
+	"name": "TR_FINANCE_FFAC_Daily_DH0400",
+	"properties": {
+		"description": "Trigger at Every 4 Hours Daily. from 25th to 7th",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2021-09-16T06:49:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						4,
+						8,
+						12,
+						16,
+						20,
+						0
+					],
+					"monthDays": [
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			}
+		}
+	}
+}

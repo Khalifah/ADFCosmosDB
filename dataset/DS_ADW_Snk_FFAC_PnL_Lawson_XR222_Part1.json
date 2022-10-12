@@ -1,0 +1,205 @@
+{
+	"name": "DS_ADW_Snk_FFAC_PnL_Lawson_XR222_Part1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADW_FIELDCOREDATA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "AccountUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CCAUDesc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MgmtNIS_BLSummaryAcct",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Account",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SubAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccountDesc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Year",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Month",
+				"type": "nvarchar"
+			},
+			{
+				"name": "UpdateDate",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SeqTrnsNbr",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PostingDate",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Activity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "System",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Journal",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LineNbr",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Operator",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Reference",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Description",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CurrencyCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TranAmount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BaseAmount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Vendor",
+				"type": "nvarchar"
+			},
+			{
+				"name": "VendorVname",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ApInvoice",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PoNumber",
+				"type": "nvarchar"
+			},
+			{
+				"name": "URN",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Company",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Company_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Mgmt_Country_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CountryDesc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Area_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_UID_SPEND",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ERP_UID_ZEROIZATION",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SubAccnt_Minor",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "NGBS",
+			"table": "FFAC_PnL_Lawson_XR222_Temp_Part1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

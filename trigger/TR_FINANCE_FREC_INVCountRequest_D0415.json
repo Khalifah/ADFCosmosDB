@@ -1,0 +1,25 @@
+{
+	"name": "TR_FINANCE_FREC_INVCountRequest_D0415",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-07-19T05:43:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						15
+					],
+					"hours": [
+						4
+					]
+				}
+			}
+		}
+	}
+}

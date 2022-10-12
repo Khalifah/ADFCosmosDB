@@ -1,0 +1,33 @@
+{
+	"name": "DS_ADW_Parameterized_Prod",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADW_PROD_NGBS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string",
+				"defaultValue": "TableName"
+			},
+			"SchemaName": {
+				"type": "string",
+				"defaultValue": "SchemaName"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

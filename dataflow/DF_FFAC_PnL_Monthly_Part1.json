@@ -1,0 +1,101 @@
+{
+	"name": "DF_FFAC_PnL_Monthly_Part1",
+	"properties": {
+		"folder": {
+			"name": "FFAC"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Blob_Src_FFAC_PnL_Monthly",
+						"type": "DatasetReference"
+					},
+					"name": "SrcLawsonXR222"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcLawsonMapping"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcGLAccountMapping"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_GL_AccountMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SnkAccountMappingTemp"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_Lawson_XR222_Part1",
+						"type": "DatasetReference"
+					},
+					"name": "SnkLawsonXR222Part1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FltAccountRange"
+				},
+				{
+					"name": "DerColYearMonth"
+				},
+				{
+					"name": "AggMaxYearMonth"
+				},
+				{
+					"name": "JnrAggandDerCol"
+				},
+				{
+					"name": "SelReqFields"
+				},
+				{
+					"name": "DerColCompnyCode"
+				},
+				{
+					"name": "JnrSelandDerColCompany"
+				},
+				{
+					"name": "SelFinalFields"
+				},
+				{
+					"name": "DerColMultiColumns"
+				},
+				{
+					"name": "DerColTrimstringfields"
+				},
+				{
+					"name": "DerColSplitSubAcctMinor"
+				},
+				{
+					"name": "DerColNewColumn"
+				},
+				{
+					"name": "SelReqCol"
+				},
+				{
+					"name": "AggERPAccntSubaccnt"
+				},
+				{
+					"name": "SelRenameCol"
+				},
+				{
+					"name": "FltPnLGroupOnC"
+				}
+			],
+			"script": "source(output(\n\t\tArea as string,\n\t\tAreaDesc as string,\n\t\tGeo as string,\n\t\tGeoDesc as string,\n\t\tSubGeo as string,\n\t\tSubgeoDesc as string,\n\t\tMgmtctry as string,\n\t\tMgmtctryDesc as string,\n\t\tProduct as string,\n\t\tProdgrpDesc as string,\n\t\tBusSeg as string,\n\t\tSegDesc as string,\n\t\tSubSeg as string,\n\t\tSubsegDesc as string,\n\t\tSubSubSeg as string,\n\t\tSubsubsegDesc as string,\n\t\tCompany as string,\n\t\tCompanyName as string,\n\t\tLocation as string,\n\t\tLocationDesc as string,\n\t\tAccountUnit as string,\n\t\tAcctUnitDesc as string,\n\t\t{MgmtNIS/BLSummaryAcct} as string,\n\t\tSummaryAcct as string,\n\t\tSummaryAcctDesc as string,\n\t\tAccount as string,\n\t\tSubAccount as string,\n\t\tAccountDesc as string,\n\t\tFiscalYear as string,\n\t\tDate as string,\n\t\tAccountingPeriod as string,\n\t\tUpdateDate as string,\n\t\tSeqTrnsNbr as string,\n\t\tPostingDate as string,\n\t\tOrigCompany as string,\n\t\tActivity as string,\n\t\tSourceCode as string,\n\t\tSystem as string,\n\t\tJeType as string,\n\t\tJournal as string,\n\t\tLineNbr as string,\n\t\tJeSequence as string,\n\t\tAutoRev as string,\n\t\tGltBook as string,\n\t\tOperator as string,\n\t\tLegalFiscalFlag as string,\n\t\tReference as string,\n\t\tARBatchNbr as string,\n\t\tDescription as string,\n\t\tCurrencyCode as string,\n\t\tTranAmount as string,\n\t\tBaseAmount as string,\n\t\tCBTransNbr as string,\n\t\tVendor as string,\n\t\tVendorVname as string,\n\t\tApInvoice as string,\n\t\tTransNbr as string,\n\t\tOrigOperatorId as string,\n\t\tProcessLevel as string,\n\t\tCashCode as string,\n\t\tPoNumber as string,\n\t\tLineNbrIc as string,\n\t\tPoRelease as string,\n\t\tPoCode as string,\n\t\tLineNbrPo as string,\n\t\tAsset as string,\n\t\tAssetCode as string,\n\t\tAstSerialNbr as string,\n\t\tManagementControlGrp as string,\n\t\tManagementOperator as string,\n\t\tAcctTreatment as string,\n\t\tCommercialAgreement as string,\n\t\tItemDescription as string,\n\t\tOrderNumber as string,\n\t\tCustomerNumber as string,\n\t\tCustomerName as string,\n\t\tArInvoice as string,\n\t\tCustPONbr as string,\n\t\tSatFolioNumber as string,\n\t\tOrigARInvoice as string,\n\t\tApprovalDateAndTime as string,\n\t\tTaxCode as string,\n\t\tMgtLineNbr as string,\n\t\tMgtAccount as string,\n\t\tMgtSubAccount as string,\n\t\tOriginatingCompany as string,\n\t\tItem as string,\n\t\tDocumentNbr as string,\n\t\tContractNumber as string,\n\t\tAktOfAcceptance as string,\n\t\tAktDate as string,\n\t\tApTransFormId as string,\n\t\tUrn as string,\n\t\tGltObjId as string,\n\t\tEcarJaf as string,\n\t\tApSuffix as string,\n\t\tApCancelSequence as string,\n\t\tApiObjId as string,\n\t\tDistSequenceNum as string,\n\t\tApMunicipality as string,\n\t\tApFisInvoiceType as string,\n\t\tFisInvoiceNum as string,\n\t\tApFisInvoiceDate as string,\n\t\tApVendorTaxId as string,\n\t\tApSLBTaxId as string,\n\t\tApImportDeclaration as string,\n\t\tApAOCCurrency as string,\n\t\tApCustomsInvoice as string,\n\t\tApCustomsDuties as string,\n\t\tApFreight as string,\n\t\tApInsurance as string,\n\t\tApStorage as string,\n\t\tApBrokerage as string,\n\t\tApFisFld1 as string,\n\t\tApFisFld2 as string,\n\t\tApFisFld3 as string,\n\t\tApFisFld4 as string,\n\t\tApFisFld5 as string,\n\t\tApFisFld6 as string,\n\t\tApFisFld7 as string,\n\t\tApFisFld8 as string,\n\t\tApFisFld9 as string,\n\t\tApFisFld10 as string,\n\t\tApFiscalItemType as string,\n\t\tApDtlAOCCurrency as string,\n\t\tApDtlCustomsDuties as string,\n\t\tApDtlFreight as string,\n\t\tApDtlInsurance as string,\n\t\tApDtlStorage as string,\n\t\tApDtlBrokerage as string,\n\t\tApDtlFisFld1 as string,\n\t\tApDtlFisFld2 as string,\n\t\tApDtlFisFld3 as string,\n\t\tApDtlFisFld4 as string,\n\t\tApDtlFisFld5 as string,\n\t\tApDtlFisFld6 as string,\n\t\tArInvoicePrefix as string,\n\t\tArInvoiceNumber as string,\n\t\tArCustomer as string,\n\t\tArCountry as string,\n\t\tArMunicipality as string,\n\t\tArSLBTaxId as string,\n\t\tArCustTaxId as string,\n\t\tArFiscalRefDate as string,\n\t\tArMiscInvcNbr as string,\n\t\tArTaxCurrency as string,\n\t\tArTaxCode01 as string,\n\t\tArTaxCriteria01 as string,\n\t\tArTaxRate01 as string,\n\t\tArTaxableAmount01 as string,\n\t\tArTaxAmount01 as string,\n\t\tArTaxCode02 as string,\n\t\tArTaxCriteria02 as string,\n\t\tArTaxRate02 as string,\n\t\tArTaxableAmount02 as string,\n\t\tArTaxAmount02 as string,\n\t\tArTaxCode03 as string,\n\t\tArTaxCriteria03 as string,\n\t\tArTaxRate03 as string,\n\t\tArTaxableAmount03 as string,\n\t\tArTaxAmount03 as string,\n\t\tArTaxCode04 as string,\n\t\tArTaxCriteria04 as string,\n\t\tArTaxRate04 as string,\n\t\tArTaxableAmount04 as string,\n\t\tArTaxAmount04 as string,\n\t\tArTaxCode05 as string,\n\t\tArTaxCriteria05 as string,\n\t\tArTaxRate05 as string,\n\t\tArTaxableAmount05 as string,\n\t\tArTaxAmount05 as string,\n\t\tArTaxCode06 as string,\n\t\tArTaxCriteria06 as string,\n\t\tArTaxRate06 as string,\n\t\tArTaxableAmount06 as string,\n\t\tArTaxAmount06 as string,\n\t\tArTaxCode07 as string,\n\t\tArTaxCriteria07 as string,\n\t\tArTaxRate07 as string,\n\t\tArTaxableAmount07 as string,\n\t\tArTaxAmount07 as string,\n\t\tArTaxCode08 as string,\n\t\tArTaxCriteria08 as string,\n\t\tArTaxRate08 as string,\n\t\tArTaxableAmount08 as string,\n\t\tArTaxAmount08 as string,\n\t\tArFisFld1 as string,\n\t\tArFisFld2 as string,\n\t\tArFisFld3 as string,\n\t\tArFisFld4 as string,\n\t\tArFisFld5 as string,\n\t\tArFisFld6 as string,\n\t\tArDtlLineNbr as string,\n\t\tArDtlItem as string,\n\t\tArDtlAmount as string,\n\t\tArDtlSlsAccount as string,\n\t\tArDtlSubAccount as string,\n\t\tArDtlFisFld1 as string,\n\t\tArDtlFisFld2 as string,\n\t\tArDtlFisFld3 as string,\n\t\tArDtlFisFld4 as string,\n\t\tArDtlFisFld5 as string,\n\t\tArDtlFisFld6 as string,\n\t\tArDtlFisFld7 as string,\n\t\tArDtlFisFld8 as string,\n\t\tDistUserFld4 as string,\n\t\tDistUserFld5 as string,\n\t\tLegalSeqNum as string,\n\t\tJVUserField01 as string,\n\t\tAttributeField03 as string,\n\t\tMgmtGltObjId as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: true,\n\tmodifiedAfter: (toTimestamp(1500940800000L)),\n\tmodifiedBefore: (currentTimestamp()),\n\twildcardPaths:['*.csv']) ~> SrcLawsonXR222\nsource(output(\n\t\t{Accounting Unit (Code)} as string,\n\t\t{Accounting Unit (Desc)} as string,\n\t\t{Company (Code)} as decimal(4,0),\n\t\t{Company (Desc)} as string,\n\t\t{Product Line Group (Code)} as string,\n\t\t{Product Line Group (Desc)} as string,\n\t\t{SL Product Line Group (Code)} as string,\n\t\t{SL Product Line Group (Desc)} as string,\n\t\t{Product Line (Code)} as string,\n\t\t{Product Line (Desc)} as string,\n\t\t{SL Product Line (Code)} as string,\n\t\t{SL Product Line (Desc)} as string,\n\t\t{SL Sub Product Line (Code)} as string,\n\t\t{SL Sub Product Line (Desc)} as string,\n\t\t{Sub Product Line (Code)} as string,\n\t\t{Sub Product Line (Desc)} as string,\n\t\t{Sub Sub Product Line(Code)} as string,\n\t\t{Sub Sub Product Line(Desc)} as string,\n\t\t{Area (Code)} as string,\n\t\t{Area (Desc)} as string,\n\t\t{Geomarket (Code)} as string,\n\t\t{Geomarket (Desc)} as string,\n\t\t{Mgmt Country (Code)} as string,\n\t\t{Mgmt Country (Desc)} as string,\n\t\t{SL Area (Code)} as string,\n\t\t{SL Area (Desc)} as string,\n\t\t{SL Geomarket (Code)} as string,\n\t\t{SL Geomarket (Desc)} as string,\n\t\t{SL Hemisphere (Code)} as string,\n\t\t{SL Hemisphere (Desc)} as string,\n\t\t{Sub Geomarket (Code)} as string,\n\t\t{Sub Geomarket (Desc)} as string,\n\t\t{Amount CM} as decimal(38,2),\n\t\tSYS_CreatedBy as string,\n\t\tSYS_CreatedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select [SSO_REPORTER_SOURCE].[SRC_Org_mapping_Lawson].* From [SSO_REPORTER_SOURCE].[SRC_Org_mapping_Lawson]',\n\tformat: 'query',\n\tstaged: true) ~> SrcLawsonMapping\nsource(output(\n\t\tERP as string,\n\t\t{P&L Group} as string,\n\t\tAccount_Major as string,\n\t\tSubAccnt_Minor as string,\n\t\tDescription as string,\n\t\t{P&L Sub-group} as string,\n\t\t{Cost Type} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select ERP,[P&L Group],Account_Major,SubAccnt_Minor,Description,[P&L Sub-group],[Cost Type] From [SSO_SHAREPOINT_SOURCE].[SRC_FI_SPO_FSPO_GL_Accounts_Mapping]',\n\tformat: 'query',\n\tstaged: true) ~> SrcGLAccountMapping\nSrcLawsonXR222 filter(Account >= \"500000\" && Account <= \"899999\") ~> FltAccountRange\nFltAccountRange derive(YearMonth = FiscalYear + case(length(AccountingPeriod)>1,AccountingPeriod,concat('0',AccountingPeriod))) ~> DerColYearMonth\nDerColYearMonth aggregate(Max_YearMonth = max(YearMonth)) ~> AggMaxYearMonth\nAggMaxYearMonth, DerColYearMonth join(Max_YearMonth == YearMonth,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrAggandDerCol\nJnrAggandDerCol select(mapColumn(\n\t\tCompany,\n\t\tAccountUnit,\n\t\tAcctUnitDesc,\n\t\t{MgmtNIS/BLSummaryAcct},\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear = FiscalYear,\n\t\tMonth = AccountingPeriod,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN = Urn\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqFields\nSrcLawsonMapping derive({Company (Code)} = toString({Company (Code)})) ~> DerColCompnyCode\nSelReqFields, DerColCompnyCode join(Company == {Company (Code)}\n\t&& AccountUnit == {Accounting Unit (Code)},\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrSelandDerColCompany\nJnrSelandDerColCompany select(mapColumn(\n\t\tAccountUnit,\n\t\tCCAUDesc = AcctUnitDesc,\n\t\t{MgmtNIS/BLSummaryAcct},\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany = {Company (Code)},\n\t\t{Company (Desc)},\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line(Code)},\n\t\t{Mgmt Country (Code)},\n\t\tCountryDesc = {Mgmt Country (Desc)},\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{Sub Geomarket (Code)}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelFinalFields\nSelFinalFields derive(ERP_UID_SPEND = AccountUnit,\n\t\tERP_UID_ZEROIZATION = AccountUnit +'.'+ iifNull(Activity,'',Activity),\n\t\tSubAccnt_Minor = Account +'/'+ case(isNull(SubAccount),'0',SubAccount),\n\t\tUpdateDate = UpdateDate,\n\t\tPostingDate = PostingDate) ~> DerColMultiColumns\nDerColMultiColumns derive(each(match(type=='string'&&name!='CCAUDesc'), $$ = ltrim(rtrim(trim($$))))) ~> DerColTrimstringfields\nSrcGLAccountMapping derive(SubAccnt_Minor1 = iif((ERP == 'MI-SWACO' || ERP == 'SMITH'),(left((split(SubAccnt_Minor,'/')[1])+'000', 3)),(split(SubAccnt_Minor,'/')[1])),\n\t\tSubAccnt_Minor2 = trim(iifNull(split(SubAccnt_Minor,'/')[2],\r\n(iif((ERP == 'MI-SWACO' || ERP == 'SMITH'),(left((split(SubAccnt_Minor,'/')[1])+'000', 3)),(split(SubAccnt_Minor,'/')[1])))\r\n,split(SubAccnt_Minor,'/')[2]))) ~> DerColSplitSubAcctMinor\nDerColSplitSubAcctMinor derive(Account_SubAccount = iif((ERP == 'LAWSON' || ERP == 'Lawson'),Account_Major + '/'+ SubAccnt_Minor2,iif(ERP == 'MI-SWACO' \r\n|| ERP == 'SMITH' || ERP == 'NonOracle',Account_Major + '.'+ SubAccnt_Minor2,Account_Major)),\n\t\tERP = iif(ERP == 'SMITH','S',iif(ERP == 'MI-SWACO','M',ERP))) ~> DerColNewColumn\nFltPnLGroupOnC select(mapColumn(\n\t\tERP,\n\t\tSubAccnt_Minor = Account_SubAccount,\n\t\tPnL_Sub_group = {P&L Sub-group}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqCol\nSelReqCol aggregate(groupBy(ERP,\n\t\tSubAccnt_Minor),\n\teach(match(!in(['ERP','SubAccnt_Minor'],name)), $$ = first($$))) ~> AggERPAccntSubaccnt\nDerColTrimstringfields select(mapColumn(\n\t\tAccountUnit,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct = {MgmtNIS/BLSummaryAcct},\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc = {Company (Desc)},\n\t\tProduct_Line_Group_Code = {Product Line Group (Code)},\n\t\tSL_Product_Line_Group_Code = {SL Product Line Group (Code)},\n\t\tProduct_Line_Code = {Product Line (Code)},\n\t\tSL_Product_Line_Code = {SL Product Line (Code)},\n\t\tSL_Sub_Product_Line_Code = {SL Sub Product Line (Code)},\n\t\tSub_Product_Line_Code = {Sub Product Line (Code)},\n\t\tSub_Sub_Product_Line_Code = {Sub Sub Product Line(Code)},\n\t\tMgmt_Country_Code = {Mgmt Country (Code)},\n\t\tCountryDesc,\n\t\tSL_Area_Code = {SL Area (Code)},\n\t\tSL_Geomarket_Code = {SL Geomarket (Code)},\n\t\tSL_Hemisphere_Code = {SL Hemisphere (Code)},\n\t\tSL_Hemisphere_Desc = {SL Hemisphere (Desc)},\n\t\tSub_Geomarket_Code = {Sub Geomarket (Code)},\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameCol\nDerColNewColumn filter({P&L Group} == 'O&C') ~> FltPnLGroupOnC\nAggERPAccntSubaccnt sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tERP as string,\n\t\tSubAccnt_Minor as string,\n\t\tPnL_Sub_group as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tERP,\n\t\tSubAccnt_Minor,\n\t\tPnL_Sub_group\n\t)) ~> SnkAccountMappingTemp\nSelRenameCol sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tAccountUnit as string,\n\t\tCCAUDesc as string,\n\t\tMgmtNIS_BLSummaryAcct as string,\n\t\tAccount as string,\n\t\tSubAccount as string,\n\t\tAccountDesc as string,\n\t\tYear as string,\n\t\tMonth as string,\n\t\tUpdateDate as string,\n\t\tSeqTrnsNbr as string,\n\t\tPostingDate as string,\n\t\tActivity as string,\n\t\tSourceCode as string,\n\t\tSystem as string,\n\t\tJournal as string,\n\t\tLineNbr as string,\n\t\tOperator as string,\n\t\tReference as string,\n\t\tDescription as string,\n\t\tCurrencyCode as string,\n\t\tTranAmount as string,\n\t\tBaseAmount as string,\n\t\tVendor as string,\n\t\tVendorVname as string,\n\t\tApInvoice as string,\n\t\tPoNumber as string,\n\t\tURN as string,\n\t\tCompany as string,\n\t\tCompany_Desc as string,\n\t\tProduct_Line_Group_Code as string,\n\t\tSL_Product_Line_Group_Code as string,\n\t\tProduct_Line_Code as string,\n\t\tSL_Product_Line_Code as string,\n\t\tSL_Sub_Product_Line_Code as string,\n\t\tSub_Product_Line_Code as string,\n\t\tSub_Sub_Product_Line_Code as string,\n\t\tMgmt_Country_Code as string,\n\t\tCountryDesc as string,\n\t\tSL_Area_Code as string,\n\t\tSL_Geomarket_Code as string,\n\t\tSL_Hemisphere_Code as string,\n\t\tSL_Hemisphere_Desc as string,\n\t\tSub_Geomarket_Code as string,\n\t\tERP_UID_SPEND as string,\n\t\tERP_UID_ZEROIZATION as string,\n\t\tSubAccnt_Minor as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tpostSQLs:[' Update NGBS.FFAC_PnL_Lawson_XR222_Temp_Part1 set [Description] = Replace(ltrim(rtrim(trim([Description]))),char(9),\\'\\')\\n\\n Update [NGBS].[FFAC_PnL_Lawson_XR222_Temp_Part1]  \\n\t Set Updatedate = Coalesce(Try_Cast(right(Updatedate,4)+\\'-\\'+Substring(Updatedate,4,2)+\\'-\\'+left(Updatedate,2) as Date) ,\\n Try_Cast(right(Updatedate,4)+\\'-\\'+left(\\'0\\'+replace(Substring(Updatedate,Charindex(\\'/\\',Updatedate,1)+1,2),\\'/\\',\\'\\'),2)+\\'-\\'+Right(\\'00\\'+Substring(Updatedate,1,Charindex(\\'/\\',Updatedate,1)-1),2) as date),Updatedate) \\n Where Updatedate like \\'%/%\\'\\n\\n  Update [NGBS].[FFAC_PnL_Lawson_XR222_Temp_Part1]  \\n\tSet PostingDate = Coalesce(Try_Cast(right(PostingDate,4)+\\'-\\'+Substring(PostingDate,4,2)+\\'-\\'+left(PostingDate,2) as Date) ,\\n Try_Cast(right(PostingDate,4)+\\'-\\'+left(\\'0\\'+replace(Substring(PostingDate,Charindex(\\'/\\',PostingDate,1)+1,2),\\'/\\',\\'\\'),2)+\\'-\\'+Right(\\'00\\'+Substring(PostingDate,1,Charindex(\\'/\\',PostingDate,1)-1),2) as date),PostingDate) \\n Where PostingDate like \\'%/%\\''],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tAccountUnit,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor\n\t)) ~> SnkLawsonXR222Part1"
+		}
+	}
+}

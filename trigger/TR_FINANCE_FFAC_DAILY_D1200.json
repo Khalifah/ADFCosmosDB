@@ -1,0 +1,26 @@
+{
+	"name": "TR_FINANCE_FFAC_DAILY_D1200",
+	"properties": {
+		"description": "Trigger at Every Daily 12:00 AM",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-10-08T10:25:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						0
+					]
+				}
+			}
+		}
+	}
+}

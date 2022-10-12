@@ -1,0 +1,226 @@
+{
+	"name": "DF_FFAC_PnL_Part3",
+	"properties": {
+		"folder": {
+			"name": "FFAC"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcOracleSourceNew"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_GL_AccountMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SrcGLAccountMapping"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_FacilitiesMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SrcFacilitiesMappingg"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcZeroizationAccount"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcOrgMappingOracle"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcNISMappingOracle"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_Oracle_Part3",
+						"type": "DatasetReference"
+					},
+					"name": "SnkFFACPnLOracleTempPart3"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelReqMulFileds"
+				},
+				{
+					"name": "FltZeroization"
+				},
+				{
+					"name": "JnrInnerZeroization"
+				},
+				{
+					"name": "JnrInnerSpend"
+				},
+				{
+					"name": "FltSpend"
+				},
+				{
+					"name": "UnZeroizationandSpend"
+				},
+				{
+					"name": "ExsZeriozation"
+				},
+				{
+					"name": "ExsSpend"
+				},
+				{
+					"name": "JnUnZerSPandZeroAccount"
+				},
+				{
+					"name": "SpltAccDesc"
+				},
+				{
+					"name": "DerColAccountTypeAll"
+				},
+				{
+					"name": "DerColAccTypeSpend"
+				},
+				{
+					"name": "ExsZeroSpendandZeroization"
+				},
+				{
+					"name": "DerColAccntTypeSpend"
+				},
+				{
+					"name": "UnMultipleInputs"
+				},
+				{
+					"name": "SelGroupbyFields"
+				},
+				{
+					"name": "AggGroupbyMulFields"
+				},
+				{
+					"name": "FltOfficeCamp"
+				},
+				{
+					"name": "JnrExsSpendandGrpby"
+				},
+				{
+					"name": "AggGrpbyreqfileds"
+				},
+				{
+					"name": "SelGrpbyFieldsonly"
+				},
+				{
+					"name": "AggUniquewithougFDECountry"
+				},
+				{
+					"name": "JnrInnerOfficeCampusandUnique"
+				},
+				{
+					"name": "ExsOfficeCampandUnique"
+				},
+				{
+					"name": "DerColFDECountryandERP"
+				},
+				{
+					"name": "UnUniqueandNAFDECountry"
+				},
+				{
+					"name": "DerColNonFacilityAssigned"
+				},
+				{
+					"name": "DerColFacilityAssigned"
+				},
+				{
+					"name": "UnNonFacilityAssandFacilAssigned"
+				},
+				{
+					"name": "DerColExcludeCountry"
+				},
+				{
+					"name": "FltExcludeCountry"
+				},
+				{
+					"name": "SrtbyBusinsLineandCostCenter"
+				},
+				{
+					"name": "SrtBusinslineandCostCenter"
+				},
+				{
+					"name": "JnOracleSrcandOrgMapping"
+				},
+				{
+					"name": "SelReqFieldsOnly"
+				},
+				{
+					"name": "DerColMutlipleColumns"
+				},
+				{
+					"name": "DerColTrimMultiFields"
+				},
+				{
+					"name": "JnOracleSourceandOracleMapping"
+				},
+				{
+					"name": "SelOracleReqFields"
+				},
+				{
+					"name": "JnOracleandGLAccountMapping"
+				},
+				{
+					"name": "ExsOraclenadAccountMapping"
+				},
+				{
+					"name": "SelReqJnFields"
+				},
+				{
+					"name": "UnOracleandAccMapping"
+				},
+				{
+					"name": "SelRenameMulFields"
+				},
+				{
+					"name": "SelZeroizandSpendFields"
+				},
+				{
+					"name": "SelRenameCreatedbyandDate"
+				},
+				{
+					"name": "SelRenameGeoMarketandMgmtCountry"
+				},
+				{
+					"name": "SelRemoveJoinfields"
+				},
+				{
+					"name": "SelRemoveYearMonth"
+				},
+				{
+					"name": "SelRenameCreatedby2"
+				},
+				{
+					"name": "SelRenameColFacilityAssigned"
+				},
+				{
+					"name": "DerColSubaccountERP"
+				},
+				{
+					"name": "DerColERPSubaccountExs"
+				}
+			],
+			"script": "source(output(\n\t\tMGMTCOUNTRY_DESC as string,\n\t\tCOMPANY_CODE as string,\n\t\tCOMPANY_DESC as string,\n\t\tBUSINESS_LINE as string,\n\t\tCOST_CENTER as string,\n\t\tCOST_CENTER_DESC as string,\n\t\tMAJOR as string,\n\t\tMAJOR_DESC as string,\n\t\tMINOR as string,\n\t\tLOCAL as string,\n\t\tDOCUMENT_NUMBER as string,\n\t\tGL_DATE as date,\n\t\tPOSTING_DATE as date,\n\t\t{CREATED BY} as string,\n\t\tINVOICE_NUMBER as string,\n\t\tJE_NAME as string,\n\t\tLINE_DESC as string,\n\t\tSOURCE as string,\n\t\tPO_NUMBER as string,\n\t\tRSOB_AMT as double,\n\t\tSYSTEM as string,\n\t\tENTERED_AMT as double,\n\t\tENTERED_CURRENCY as string,\n\t\tURN_DFM_NO as string,\n\t\tVENDOR_NO as string,\n\t\tVENDOR_NAME as string,\n\t\t{JE Line Num} as string,\n\t\tSOURCE_SYSTEM as string,\n\t\tSYS_CreatedBy as string,\n\t\tSYS_CreatedDate as timestamp,\n\t\tYearMonth as date\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: true,\n\tisolationLevel: 'NONE',\n\tquery: 'SELECT [MGMTCOUNTRY_DESC]\\n      ,[COMPANY_CODE]\\n      ,[COMPANY_DESC]\\n      ,[BUSINESS_LINE]\\n      ,[COST_CENTER]\\n      ,[COST_CENTER_DESC]\\n      ,[MAJOR]\\n      ,[MAJOR_DESC]\\n      ,[MINOR]\\n      ,[LOCAL]\\n      ,[DOCUMENT_NUMBER]\\n      ,[GL_DATE]\\n      ,[POSTING_DATE]\\n      ,[CREATED BY]\\n      ,[INVOICE_NUMBER]\\n      ,[JE_NAME]\\n      ,[LINE_DESC]\\n      ,[SOURCE]\\n      ,[PO_NUMBER]\\n      ,[RSOB_AMT]\\n      ,[SYSTEM]\\n      ,[ENTERED_AMT]\\n      ,[ENTERED_CURRENCY]\\n      ,[URN_DFM_NO]\\n      ,[VENDOR_NO]\\n      ,[VENDOR_NAME]\\n      ,[JE Line Num]\\n      ,[SOURCE_SYSTEM]\\n      ,[SYS_CreatedBy]\\n      ,[SYS_CreatedDate]\\n\t  ,Convert(date,\\'01-\\' + ACCOUNT_PERIOD,108) As YearMonth \\n\t\\nFrom [SSO_ORACLE_SOURCE].[SRC_FI_ORC_FINR730_TANSACTIONS] With(NoLock) \\nWhere Convert(date,\\'01-\\' + ACCOUNT_PERIOD,108) = \\n(Select Max(Convert(date,\\'01-\\' + ACCOUNT_PERIOD,108)) \\nFrom [SSO_ORACLE_SOURCE].[SRC_FI_ORC_FINR730_TANSACTIONS]) And \\nCATEGORY <> \\'Opening\\'\\n',\n\tformat: 'query',\n\tstaged: true) ~> SrcOracleSourceNew\nsource(output(\n\t\tERP as string,\n\t\tRight_SubAccnt_Minor as string,\n\t\tPnL_Sub_group as string,\n\t\tERPSubAccntMinor as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select ERP,SubAccnt_Minor as Right_SubAccnt_Minor,PnL_Sub_group,Ltrim(RTRIM(ERP))+LTRIM(RTRIM(SubAccnt_Minor)) as ERPSubAccntMinor  from [NGBS].[SRC_FI_SPO_FSPO_GL_Accounts_Mapping_part1_temp] Where ERP IN (\\'MI-SWACO\\',\\'SMITH\\',\\'S\\',\\'M\\')',\n\tformat: 'query',\n\tstaged: true) ~> SrcGLAccountMapping\nsource(output(\n\t\tERP as string,\n\t\tERP_UID as string,\n\t\tFacility_ID as string,\n\t\tFacility_Name as string,\n\t\tFacility_Status as string,\n\t\tFacility_Type as string,\n\t\tFacility_Owner as string,\n\t\tBusiness_Activity as string,\n\t\tOrigin_Business as string,\n\t\tFDE_Country as string,\n\t\tFDE_City as string,\n\t\tLatitude as double,\n\t\tLongitude as double,\n\t\tLand_Area_Square_Meter as decimal(25,0),\n\t\tBuild_Area_Square_Meter as decimal(25,0),\n\t\tAccount_Type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select * from NGBS.SRC_FFAC_Facilities_Mapping_Part2_temp where ERP in (\\'ORACLE-MI\\',\\'ORACLE-SI\\')',\n\tformat: 'query',\n\tstaged: true) ~> SrcFacilitiesMappingg\nsource(output(\n\t\tERP as string,\n\t\t{GL Account} as string,\n\t\t{Account (Desc)} as string,\n\t\tGLAccountERP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select Case when ERP = \\'Oracle MI\\' then \\'ORACLE-MI\\' When [ERP] = \\'Oracle SMITS\\' THEN \\'ORACLE-SI\\' else ERP end as ERP, [GL Account],[Account (Desc)],\\n ltrim(rtrim([GL Account]))+Case when ERP = \\'Oracle MI\\' then \\'ORACLE-MI\\' When [ERP] = \\'Oracle SMITS\\' THEN \\'ORACLE-SI\\' else ltrim(rtrim(ERP)) end as GLAccountERP From [SSO_SHAREPOINT_SOURCE].[SRC_FI_SPO_FSPO_FFACZeroizationAccount]',\n\tformat: 'query',\n\tstaged: true) ~> SrcZeroizationAccount\nsource(output(\n\t\t{Product Line Group (Code)} as string,\n\t\t{Product Line Group (Desc)} as string,\n\t\t{SL Product Line Group (Code)} as string,\n\t\t{SL Product Line Group (Desc)} as string,\n\t\t{Business Line (Desc)} as string,\n\t\t{Business Line} as string,\n\t\t{Product Line (Code)} as string,\n\t\t{Product Line (Desc)} as string,\n\t\t{SL Product Line (Code)} as string,\n\t\t{SL Product Line (Desc)} as string,\n\t\t{SL Sub Product Line (Code)} as string,\n\t\t{SL Sub Product Line (Desc)} as string,\n\t\t{Sub Product Line (Code)} as string,\n\t\t{Sub Product Line (Desc)} as string,\n\t\t{Sub Sub Product Line (Code)} as string,\n\t\t{Sub Sub Product Line (Desc)} as string,\n\t\t{Cost Center (Code)} as string,\n\t\t{Cost Center (Desc)} as string,\n\t\t{Country (Code)} as string,\n\t\t{Country (Desc)} as string,\n\t\t{SL Area (Code)} as string,\n\t\t{SL Area (Desc)} as string,\n\t\t{SL Geomarket (Code)} as string,\n\t\t{SL Geomarket (Desc)} as string,\n\t\t{SL Hemisphere (Code)} as string,\n\t\t{SL Hemisphere (Desc)} as string,\n\t\t{SL Sub Geomarket (Code)} as string,\n\t\t{SL Sub Geomarket (Desc)} as string,\n\t\tSYS_CreatedBy as string,\n\t\tSYS_CreatedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select [SSO_REPORTER_SOURCE].[SRC_Org_mapping_Oracle].* From [SSO_REPORTER_SOURCE].[SRC_Org_mapping_Oracle]',\n\tformat: 'query',\n\tstaged: true) ~> SrcOrgMappingOracle\nsource(output(\n\t\t{HFM Leaf (Code)} as string,\n\t\t{HFM leaf (Desc)} as string,\n\t\t{NIS Desc} as string,\n\t\tSource as string,\n\t\t{Major (Desc)} as string,\n\t\t{Account Code} as string,\n\t\t{Minor (Desc)} as string,\n\t\tSys_CreatedBy as string,\n\t\tSys_CreatedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select [SSO_REPORTER_SOURCE].[SRC_NIS_mapping_Oracle].* From [SSO_REPORTER_SOURCE].[SRC_NIS_mapping_Oracle]',\n\tformat: 'query',\n\tstaged: true) ~> SrcNISMappingOracle\nSelRenameMulFields select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = SelRenameMulFields@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = SelRenameMulFields@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = SelRenameMulFields@Right_Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = SelRenameMulFields@Right_Sys_CreatedDate,\n\t\tNIS_SubLine\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqMulFileds\nSrcFacilitiesMappingg filter(Account_Type == 'Zeroization') ~> FltZeroization\nSelReqMulFileds, FltZeroization join(ERP_UID_ZEROIZATION == ERP_UID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerZeroization\nExsZeriozation, FltSpend join(ERP_UID_SPEND == ERP_UID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerSpend\nSrcFacilitiesMappingg filter(Account_Type != 'Zeroization') ~> FltSpend\nJnrInnerZeroization, JnrInnerSpend union(byName: true)~> UnZeroizationandSpend\nSelReqMulFileds, FltZeroization exists(ERP_UID_ZEROIZATION == ERP_UID,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsZeriozation\nExsZeriozation, FltSpend exists(ERP_UID_SPEND == ERP_UID,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsSpend\nDerColSubaccountERP, SrcZeroizationAccount join(SubaccountERP == GLAccountERP,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnUnZerSPandZeroAccount\nSelZeroizandSpendFields split(like(lower(AccountDesc),'%zero%') || like(lower(AccountDesc),'%char%') || like(lower(AccountDesc),'%allocation%'),\n\tdisjoint: false) ~> SpltAccDesc@(MatchedRows, NonMatchedRows)\nSpltAccDesc@MatchedRows derive(Account_Type = 'Zeroization/Recharges/Allocation') ~> DerColAccountTypeAll\nSpltAccDesc@NonMatchedRows derive(Account_Type = 'Spend') ~> DerColAccTypeSpend\nDerColERPSubaccountExs, SrcZeroizationAccount exists(SubaccountERP == GLAccountERP,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsZeroSpendandZeroization\nExsZeroSpendandZeroization derive(Account_Type = 'Spend') ~> DerColAccntTypeSpend\nDerColAccountTypeAll, DerColAccTypeSpend, SelRenameCreatedbyandDate union(byName: true)~> UnMultipleInputs\nAggGroupbyMulFields select(mapColumn(\n\t\tSL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelGroupbyFields\nSelRenameGeoMarketandMgmtCountry aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tERP),\n\teach(match(!in(['SL_Geomarket_Code','Mgmt_Country_Code','FDE_Country','ERP'],name)), $$ = first($$))) ~> AggGroupbyMulFields\nExsSpend filter({NIS Desc} == 'Office & Camp' || {NIS Desc} == 'Office and Camp') ~> FltOfficeCamp\nFltOfficeCamp, SelGroupbyFields join({SL Geomarket (Code)} == SL_Geomarket_Code\n\t&& MgmtCountryCode == Mgmt_Country_Code\n\t&& ERP_Data == ERP,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrExsSpendandGrpby\nSelRemoveJoinfields aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tYear,\n\t\tMonth,\n\t\tERP),\n\teach(match(!in(['SL_Geomarket_Code','Mgmt_Country_Code','FDE_Country','Year','Month','ERP'],name)), $$ = first($$))) ~> AggGrpbyreqfileds\nAggGrpbyreqfileds select(mapColumn(\n\t\tSL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tYear,\n\t\tMonth,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelGrpbyFieldsonly\nSelGrpbyFieldsonly aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tYear,\n\t\tMonth,\n\t\tERP),\n\tFDE_Country = first(FDE_Country)) ~> AggUniquewithougFDECountry\nFltOfficeCamp, AggUniquewithougFDECountry join({SL Geomarket (Code)} == SL_Geomarket_Code\n\t&& MgmtCountryCode == Mgmt_Country_Code\n\t&& SelReqMulFileds@Year == AggUniquewithougFDECountry@Year\n\t&& SelReqMulFileds@Month == AggUniquewithougFDECountry@Month\n\t&& ERP_Data == ERP,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerOfficeCampusandUnique\nFltOfficeCamp, AggUniquewithougFDECountry exists({SL Geomarket (Code)} == SL_Geomarket_Code\n\t&& MgmtCountryCode == Mgmt_Country_Code\n\t&& SelReqMulFileds@Year == AggUniquewithougFDECountry@Year\n\t&& SelReqMulFileds@Month == AggUniquewithougFDECountry@Month\n\t&& ERP_Data == ERP,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsOfficeCampandUnique\nExsOfficeCampandUnique derive(FDE_Country = 'N/A',\n\t\tERP = ERP_Data) ~> DerColFDECountryandERP\nSelRemoveYearMonth, DerColFDECountryandERP union(byName: true)~> UnUniqueandNAFDECountry\nSelRenameCreatedby2 derive(Facility_Assigned = 'Non Facility AU') ~> DerColNonFacilityAssigned\nUnMultipleInputs derive(Facility_Assigned = 'Facility AU') ~> DerColFacilityAssigned\nDerColNonFacilityAssigned, DerColFacilityAssigned union(byName: true)~> UnNonFacilityAssandFacilAssigned\nUnNonFacilityAssandFacilAssigned derive(ExcludeCountry = toString(Year)+toString(Month)+iifNull(ERP_Data,'')+iifNull(MgmtCountryCode,''),\n\t\tYear = toString(Year),\n\t\tDescription = iif(isNull(rtrim(ltrim(regexReplace( Description, '\\r*\\n*', '')))),Description,rtrim(ltrim(regexReplace( Description, '\\r*\\n*', ''))))) ~> DerColExcludeCountry\nSelRenameColFacilityAssigned filter(!in(['202011ORACLE-MISC_CO','202011ORACLE-MISC_PE','202011ORACLE-MISC_GY','202011ORACLE-MISC_SR','202011ORACLE-MISC_TT','202011ORACLE-MISC_DK','202011ORACLE-MISC_NO'],ExcludeCountry)) ~> FltExcludeCountry\nSrcOracleSourceNew sort(asc(BUSINESS_LINE, true),\n\tasc(COST_CENTER, true)) ~> SrtbyBusinsLineandCostCenter\nSrcOrgMappingOracle sort(asc({Business Line}, true),\n\tasc({Cost Center (Code)}, true)) ~> SrtBusinslineandCostCenter\nSrtbyBusinsLineandCostCenter, SrtBusinslineandCostCenter join(BUSINESS_LINE == {Business Line}\n\t&& COST_CENTER == {Cost Center (Code)},\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnOracleSrcandOrgMapping\nJnOracleSrcandOrgMapping select(mapColumn(\n\t\tMGMTCOUNTRY_DESC,\n\t\tCOMPANY_CODE,\n\t\tCOMPANY_DESC,\n\t\tCOST_CENTER_DESC,\n\t\tMAJOR,\n\t\tMAJOR_DESC,\n\t\tMINOR,\n\t\tLOCAL,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\t{CREATED BY},\n\t\tINVOICE_NUMBER,\n\t\tJE_NAME,\n\t\tLINE_DESC,\n\t\tSOURCE,\n\t\tPO_NUMBER,\n\t\tRSOB_AMT,\n\t\tSYSTEM,\n\t\tENTERED_AMT,\n\t\tENTERED_CURRENCY,\n\t\tURN_DFM_NO,\n\t\tVENDOR_NO,\n\t\tVENDOR_NAME,\n\t\t{JE Line Num},\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy = SrcOracleSourceNew@SYS_CreatedBy,\n\t\tSYS_CreatedDate = SrcOracleSourceNew@SYS_CreatedDate,\n\t\tYearMonth,\n\t\t{Product Line Group (Code)},\n\t\t{Product Line Group (Desc)},\n\t\t{SL Product Line Group (Code)},\n\t\t{SL Product Line Group (Desc)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\t{Cost Center (Code)},\n\t\t{Country (Code)},\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = SrcOrgMappingOracle@SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = SrcOrgMappingOracle@SYS_CreatedDate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqFieldsOnly\nSelReqFieldsOnly derive(SubAccnt_minor = MAJOR+'.'+MINOR,\n\t\tYear = year(YearMonth),\n\t\tMonth = ltrim(toString(month(YearMonth)),'0'),\n\t\tERP_Data = iif(SOURCE_SYSTEM=='M','ORACLE-MI','ORACLE-SI'),\n\t\tERP_UID_SPEND = {Cost Center (Code)} +'.' + {Business Line},\n\t\tERP_UID_ZEROIZATION = {Cost Center (Code)}+'.'+{Business Line}+'.'+LOCAL,\n\t\tAccountCode = MAJOR+'-'+MINOR,\n\t\tERPSubAccntMinor = ltrim(rtrim(SOURCE_SYSTEM))+MAJOR+'.'+MINOR) ~> DerColMutlipleColumns\nDerColMutlipleColumns derive(each(match(in(['LINE_DESC','PO_NUMBER','VENDOR_NO','VENDOR_NAME'],name)), $$ = ltrim(rtrim(trim($$))))) ~> DerColTrimMultiFields\nDerColTrimMultiFields, SrcNISMappingOracle join(AccountCode == {Account Code}\n\t&& SOURCE_SYSTEM == SrcNISMappingOracle@Source,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnOracleSourceandOracleMapping\nJnOracleSourceandOracleMapping select(mapColumn(\n\t\tMGMTCOUNTRY_DESC,\n\t\tCOMPANY_CODE,\n\t\tCOMPANY_DESC,\n\t\tCOST_CENTER_DESC,\n\t\tMAJOR,\n\t\tMAJOR_DESC,\n\t\tMINOR,\n\t\tLOCAL,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\t{CREATED BY},\n\t\tINVOICE_NUMBER,\n\t\tJE_NAME,\n\t\tLINE_DESC,\n\t\tSOURCE = SelReqFieldsOnly@SOURCE,\n\t\tPO_NUMBER,\n\t\tRSOB_AMT,\n\t\tSYSTEM,\n\t\tENTERED_AMT,\n\t\tENTERED_CURRENCY,\n\t\tURN_DFM_NO,\n\t\tVENDOR_NO,\n\t\tVENDOR_NAME,\n\t\t{JE Line Num},\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy = SelReqFieldsOnly@SYS_CreatedBy,\n\t\tSYS_CreatedDate = SelReqFieldsOnly@SYS_CreatedDate,\n\t\tYearMonth,\n\t\t{Product Line Group (Code)},\n\t\t{Product Line Group (Desc)},\n\t\t{SL Product Line Group (Code)},\n\t\t{SL Product Line Group (Desc)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\t{Cost Center (Code)},\n\t\t{Country (Code)},\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = SrcNISMappingOracle@Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = SrcNISMappingOracle@Sys_CreatedDate,\n\t\tERPSubAccntMinor\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelOracleReqFields\nSelOracleReqFields, SrcGLAccountMapping join(SelOracleReqFields@ERPSubAccntMinor == SrcGLAccountMapping@ERPSubAccntMinor,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnOracleandGLAccountMapping\nSelOracleReqFields, SrcGLAccountMapping exists(SelOracleReqFields@ERPSubAccntMinor == SrcGLAccountMapping@ERPSubAccntMinor,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsOraclenadAccountMapping\nJnOracleandGLAccountMapping select(mapColumn(\n\t\tMGMTCOUNTRY_DESC,\n\t\tCOMPANY_CODE,\n\t\tCOMPANY_DESC,\n\t\tCOST_CENTER_DESC,\n\t\tMAJOR,\n\t\tMAJOR_DESC,\n\t\tMINOR,\n\t\tLOCAL,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\t{CREATED BY},\n\t\tINVOICE_NUMBER,\n\t\tJE_NAME,\n\t\tLINE_DESC,\n\t\tSOURCE,\n\t\tPO_NUMBER,\n\t\tRSOB_AMT,\n\t\tSYSTEM,\n\t\tENTERED_AMT,\n\t\tENTERED_CURRENCY,\n\t\tURN_DFM_NO,\n\t\tVENDOR_NO,\n\t\tVENDOR_NAME,\n\t\t{JE Line Num},\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\tYearMonth,\n\t\t{Product Line Group (Code)},\n\t\t{Product Line Group (Desc)},\n\t\t{SL Product Line Group (Code)},\n\t\t{SL Product Line Group (Desc)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\t{Cost Center (Code)},\n\t\t{Country (Code)},\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = SelOracleReqFields@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = SelOracleReqFields@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = SelOracleReqFields@Right_Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = SelOracleReqFields@Right_Sys_CreatedDate,\n\t\tPnL_Sub_group\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqJnFields\nSelReqJnFields, ExsOraclenadAccountMapping union(byName: true)~> UnOracleandAccMapping\nUnOracleandAccMapping select(mapColumn(\n\t\tCountry_Desc = MGMTCOUNTRY_DESC,\n\t\tCompany = COMPANY_CODE,\n\t\tCompany_Desc = COMPANY_DESC,\n\t\tCCAUDesc = COST_CENTER_DESC,\n\t\tAccount = MAJOR,\n\t\tAccount_Desc = MAJOR_DESC,\n\t\tSubAccount = MINOR,\n\t\tLocal = LOCAL,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator = {CREATED BY},\n\t\tInvoiceNo = INVOICE_NUMBER,\n\t\tJournal = JE_NAME,\n\t\tDescription = LINE_DESC,\n\t\tSourceCode = SOURCE,\n\t\tPONumber = PO_NUMBER,\n\t\tBaseAmount = RSOB_AMT,\n\t\tSystem = SYSTEM,\n\t\tTranAmount = ENTERED_AMT,\n\t\tCurrencyCode = ENTERED_CURRENCY,\n\t\tURN = URN_DFM_NO,\n\t\tVendor = VENDOR_NO,\n\t\tVendorVname = VENDOR_NAME,\n\t\tLineNbr = {JE Line Num},\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU = {Cost Center (Code)},\n\t\tMgmtCountryCode = {Country (Code)},\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = UnOracleandAccMapping@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = UnOracleandAccMapping@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = UnOracleandAccMapping@Right_Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = UnOracleandAccMapping@Right_Sys_CreatedDate,\n\t\tNIS_SubLine = PnL_Sub_group\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameMulFields\nJnUnZerSPandZeroAccount select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = UnZeroizationandSpend@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = UnZeroizationandSpend@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tSys_CreatedBy2 = UnZeroizationandSpend@Right_Sys_CreatedBy,\n\t\tSys_CreatedDate2 = UnZeroizationandSpend@Right_Sys_CreatedDate,\n\t\tNIS_SubLine,\n\t\tERP = UnZeroizationandSpend@ERP,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\t{GL Account},\n\t\tAccountDesc = {Account (Desc)}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelZeroizandSpendFields\nDerColAccntTypeSpend select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = UnZeroizationandSpend@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = UnZeroizationandSpend@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tSys_CreatedBy2 = UnZeroizationandSpend@Right_Sys_CreatedBy,\n\t\tSys_CreatedDate2 = UnZeroizationandSpend@Right_Sys_CreatedDate,\n\t\tNIS_SubLine,\n\t\tERP,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameCreatedbyandDate\nUnMultipleInputs select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmt_Country_Code = MgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\tSL_Geomarket_Code = {SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tSys_CreatedBy2,\n\t\tSys_CreatedDate2,\n\t\tNIS_SubLine,\n\t\tERP,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\t{GL Account},\n\t\tAccountDesc\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameGeoMarketandMgmtCountry\nJnrExsSpendandGrpby select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmt_Country_Code = MgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\tSL_Geomarket_Code = {SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = SelReqMulFileds@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = SelReqMulFileds@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = SelReqMulFileds@Right_Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = SelReqMulFileds@Right_Sys_CreatedDate,\n\t\tNIS_SubLine,\n\t\tFDE_Country,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRemoveJoinfields\nJnrInnerOfficeCampusandUnique select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = SelReqMulFileds@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = SelReqMulFileds@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear = SelReqMulFileds@Year,\n\t\tMonth = SelReqMulFileds@Month,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tRight_Sys_CreatedBy = SelReqMulFileds@Right_Sys_CreatedBy,\n\t\tRight_Sys_CreatedDate = SelReqMulFileds@Right_Sys_CreatedDate,\n\t\tNIS_SubLine,\n\t\tERP,\n\t\tFDE_Country\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRemoveYearMonth\nUnUniqueandNAFDECountry select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccount_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPOSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\t{Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\t{SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy = UnUniqueandNAFDECountry@Right_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate = UnUniqueandNAFDECountry@Right_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tSys_CreatedBy2 = UnUniqueandNAFDECountry@Right_Sys_CreatedBy,\n\t\tSys_CreatedDate2 = UnUniqueandNAFDECountry@Right_Sys_CreatedDate,\n\t\tNIS_SubLine,\n\t\tERP,\n\t\tFDE_Country,\n\t\tERP_Data\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameCreatedby2\nDerColExcludeCountry select(mapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccountDesc = Account_Desc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPostingDate = POSTING_DATE,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\t{Product Line Group (Code)},\n\t\t{SL Product Line Group (Code)},\n\t\t{Business Line},\n\t\t{Product Line (Code)},\n\t\t{SL Product Line (Code)},\n\t\t{SL Sub Product Line (Code)},\n\t\t{Sub Product Line (Code)},\n\t\tSub_Sub_Product_Line_Code = {Sub Sub Product Line (Code)},\n\t\tCCAU,\n\t\tMgmtCountryCode,\n\t\t{SL Area (Code)},\n\t\t{SL Geomarket (Code)},\n\t\t{SL Hemisphere (Code)},\n\t\t{SL Hemisphere (Desc)},\n\t\tSub_Geomarket_Code = {SL Sub Geomarket (Code)},\n\t\tRight_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate,\n\t\tSubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\t{NIS Desc},\n\t\tSys_CreatedBy2,\n\t\tSys_CreatedDate2,\n\t\tNIS_SubLine,\n\t\tERP,\n\t\tFDE_Country,\n\t\tERP_Data,\n\t\tFacility_Assigned,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\t{GL Account},\n\t\tAccount_Desc = AccountDesc,\n\t\tExcludeCountry\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameColFacilityAssigned\nUnZeroizationandSpend derive(SubaccountERP = ltrim(rtrim(SubAccount))+ltrim(rtrim(ERP))) ~> DerColSubaccountERP\nUnZeroizationandSpend derive(SubaccountERP = ltrim(rtrim(SubAccount))+ltrim(rtrim(ERP))) ~> DerColERPSubaccountExs\nFltExcludeCountry sink(allowSchemaDrift: false,\n\tvalidateSchema: false,\n\tinput(\n\t\tCountry_Desc as string,\n\t\tCompany as string,\n\t\tCompany_Desc as string,\n\t\tCCAUDesc as string,\n\t\tAccount as string,\n\t\tAccountDesc as string,\n\t\tSubAccount as string,\n\t\tLocal as string,\n\t\tDocument_Number as string,\n\t\tGL_DATE as date,\n\t\tPostingDate as date,\n\t\tOperator as string,\n\t\tInvoiceNo as string,\n\t\tJournal as string,\n\t\tDescription as string,\n\t\tSourceCode as string,\n\t\tPoNumber as string,\n\t\tBaseAmount as double,\n\t\tSystem as string,\n\t\tTranAmount as double,\n\t\tCurrencyCode as string,\n\t\tURN as string,\n\t\tVendor as string,\n\t\tVendorVname as string,\n\t\tLineNbr as string,\n\t\tSOURCE_SYSTEM as string,\n\t\tSYS_CreatedBy as string,\n\t\tSYS_CreatedDate as timestamp,\n\t\tProduct_Line_Group_Code as string,\n\t\tSL_Product_Line_Group_Code as string,\n\t\tBusiness_Line as string,\n\t\tProduct_Line_Code as string,\n\t\tSL_Product_Line_Code as string,\n\t\tSL_Sub_Product_Line_Code as string,\n\t\tSub_Product_Line_Code as string,\n\t\tSub_Sub_Product_Line_Code as string,\n\t\tCCAU as string,\n\t\tMgmt_Country_Code as string,\n\t\tSL_Area_Code as string,\n\t\tSL_Geomarket_Code as string,\n\t\tSL_Hemisphere_Code as string,\n\t\tSL_Hemisphere_Desc as string,\n\t\tSub_Geomarket_Code as string,\n\t\tRight_SYS_CreatedBy as string,\n\t\tRight_SYS_CreatedDate as timestamp,\n\t\tSubAccnt_Minor as string,\n\t\tYear as string,\n\t\tMonth as string,\n\t\tERP_Data as string,\n\t\tERP_UID_SPEND as string,\n\t\tERP_UID_ZEROIZATION as string,\n\t\tNIS_Desc as string,\n\t\tSys_CreatedBy2 as string,\n\t\tSys_CreatedDate2 as timestamp,\n\t\tNIS_Sub_Line as string,\n\t\tERP_UID as string,\n\t\tFacility_ID as string,\n\t\tFacility_Name as string,\n\t\tFacility_Status as string,\n\t\tFacility_Type as string,\n\t\tFacility_Owner as string,\n\t\tLatitude as double,\n\t\tLongitude as double,\n\t\tOrigin_Business as string,\n\t\tBusiness_Activity as string,\n\t\tERP as string,\n\t\tFDE_Country as string,\n\t\tFDE_City as string,\n\t\tLand_Area_Square_Meter as decimal(24,0),\n\t\tBuild_Area_Square_Meter as decimal(24,0),\n\t\tAccount_Type as string,\n\t\tGL_Account as string,\n\t\tAccount_Desc as string,\n\t\tFacility_Assigned as string,\n\t\tExcludeCountry as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tpostSQLs:['Update NGBS.FFAC_PnL_Oracle_Temp_Part3 Set [Description] =ltrim(rtrim([Description]))'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tCountry_Desc,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tCCAUDesc,\n\t\tAccount,\n\t\tAccountDesc,\n\t\tSubAccount,\n\t\tLocal,\n\t\tDocument_Number = DOCUMENT_NUMBER,\n\t\tGL_DATE,\n\t\tPostingDate,\n\t\tOperator,\n\t\tInvoiceNo,\n\t\tJournal,\n\t\tDescription,\n\t\tSourceCode,\n\t\tPoNumber = PONumber,\n\t\tBaseAmount,\n\t\tSystem,\n\t\tTranAmount,\n\t\tCurrencyCode,\n\t\tURN,\n\t\tVendor,\n\t\tVendorVname,\n\t\tLineNbr,\n\t\tSOURCE_SYSTEM,\n\t\tSYS_CreatedBy,\n\t\tSYS_CreatedDate,\n\t\tProduct_Line_Group_Code = {Product Line Group (Code)},\n\t\tSL_Product_Line_Group_Code = {SL Product Line Group (Code)},\n\t\tBusiness_Line = {Business Line},\n\t\tProduct_Line_Code = {Product Line (Code)},\n\t\tSL_Product_Line_Code = {SL Product Line (Code)},\n\t\tSL_Sub_Product_Line_Code = {SL Sub Product Line (Code)},\n\t\tSub_Product_Line_Code = {Sub Product Line (Code)},\n\t\tSub_Sub_Product_Line_Code,\n\t\tCCAU,\n\t\tMgmt_Country_Code = MgmtCountryCode,\n\t\tSL_Area_Code = {SL Area (Code)},\n\t\tSL_Geomarket_Code = {SL Geomarket (Code)},\n\t\tSL_Hemisphere_Code = {SL Hemisphere (Code)},\n\t\tSL_Hemisphere_Desc = {SL Hemisphere (Desc)},\n\t\tSub_Geomarket_Code,\n\t\tRight_SYS_CreatedBy,\n\t\tRight_SYS_CreatedDate,\n\t\tSubAccnt_Minor = SubAccnt_minor,\n\t\tYear,\n\t\tMonth,\n\t\tERP_Data,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tNIS_Desc = {NIS Desc},\n\t\tSys_CreatedBy2,\n\t\tSys_CreatedDate2,\n\t\tNIS_Sub_Line = NIS_SubLine,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tLatitude,\n\t\tLongitude,\n\t\tOrigin_Business,\n\t\tBusiness_Activity,\n\t\tERP,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\tGL_Account = {GL Account},\n\t\tAccount_Desc,\n\t\tFacility_Assigned,\n\t\tExcludeCountry\n\t)) ~> SnkFFACPnLOracleTempPart3"
+		}
+	}
+}

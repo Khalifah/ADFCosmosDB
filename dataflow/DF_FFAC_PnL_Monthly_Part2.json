@@ -1,0 +1,214 @@
+{
+	"name": "DF_FFAC_PnL_Monthly_Part2",
+	"properties": {
+		"folder": {
+			"name": "FFAC"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcFacilitiesMapping"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_Lawson_XR222_Part1",
+						"type": "DatasetReference"
+					},
+					"name": "SrcLawsonXR222"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_GL_AccountMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SrcGLAccountMapping"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_FacilitiesMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SrcFacilitiesMappingg"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Parameterized_Prod",
+						"type": "DatasetReference"
+					},
+					"name": "SrcZeroizationAccount"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_FacilitiesMapping",
+						"type": "DatasetReference"
+					},
+					"name": "SnkFacilitiesMappingTemp"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADW_Snk_FFAC_PnL_Lawson_Part2",
+						"type": "DatasetReference"
+					},
+					"name": "SnkFFACPnLLawsontempPart2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FltNotNullERP"
+				},
+				{
+					"name": "DerColUpperCaseERP"
+				},
+				{
+					"name": "AggGrpbySpend"
+				},
+				{
+					"name": "AggGrpbyZeroization"
+				},
+				{
+					"name": "SelZeroization"
+				},
+				{
+					"name": "SelSpend"
+				},
+				{
+					"name": "UnSpendandZeroization"
+				},
+				{
+					"name": "DerColZeroization"
+				},
+				{
+					"name": "DerColSpend"
+				},
+				{
+					"name": "SelRenameColumns"
+				},
+				{
+					"name": "JnrInnerXR222andGLAccountMapping"
+				},
+				{
+					"name": "SelReqFields"
+				},
+				{
+					"name": "UnXR222andAccMapping"
+				},
+				{
+					"name": "SelRenameAccountUnitasCCAU"
+				},
+				{
+					"name": "FltZeroization"
+				},
+				{
+					"name": "JnrInnerZeroization"
+				},
+				{
+					"name": "JnrInnerSpend"
+				},
+				{
+					"name": "FltSpend"
+				},
+				{
+					"name": "UnZeroizationandSpend"
+				},
+				{
+					"name": "ExsAccMappingonSubAcctMinor"
+				},
+				{
+					"name": "ExsZeriozation"
+				},
+				{
+					"name": "ExsSpend"
+				},
+				{
+					"name": "JnUnZerSPandZeroAccount"
+				},
+				{
+					"name": "SelZeroizationFields"
+				},
+				{
+					"name": "SpltAccDesc"
+				},
+				{
+					"name": "DerColAccountTypeAll"
+				},
+				{
+					"name": "DerColAccTypeSpend"
+				},
+				{
+					"name": "ExsZeroSpendandZeroization"
+				},
+				{
+					"name": "DerColAccntTypeSpend"
+				},
+				{
+					"name": "UnMultipleInputs"
+				},
+				{
+					"name": "SelGroupbyFields"
+				},
+				{
+					"name": "AggGroupbyMulFields"
+				},
+				{
+					"name": "FltOfficeCamp"
+				},
+				{
+					"name": "JnrExsSpendandGrpby"
+				},
+				{
+					"name": "AggGrpbyreqfileds"
+				},
+				{
+					"name": "SelJnrExsSpendFields"
+				},
+				{
+					"name": "SelGrpbyFieldsonly"
+				},
+				{
+					"name": "AggUniquewithougFDECountry"
+				},
+				{
+					"name": "JnrInnerOfficeCampusandUnique"
+				},
+				{
+					"name": "ExsOfficeCampandUnique"
+				},
+				{
+					"name": "SelUniqueReqFields"
+				},
+				{
+					"name": "DerColFDECountryandERP"
+				},
+				{
+					"name": "UnUniqueandNAFDECountry"
+				},
+				{
+					"name": "DerColNonFacilityAssigned"
+				},
+				{
+					"name": "DerColFacilityAssigned"
+				},
+				{
+					"name": "UnNonFacilityAssandFacilAssigned"
+				},
+				{
+					"name": "DerColExcludeCountry"
+				},
+				{
+					"name": "SelRenameNISDescandAPInvoice"
+				},
+				{
+					"name": "FltExcludeCountry"
+				}
+			],
+			"script": "source(output(\n\t\tERP as string,\n\t\t{ERP UID SPEND} as string,\n\t\t{ERP UID ZEROIZATION} as string,\n\t\t{Facility ID} as string,\n\t\t{Facility Name} as string,\n\t\t{Facility Status} as string,\n\t\t{Facility Type} as string,\n\t\t{Facility Owner} as string,\n\t\t{Business Activity} as string,\n\t\t{Origin Business} as string,\n\t\t{FDE-Country} as string,\n\t\t{FDE-City} as string,\n\t\tLatitude as double,\n\t\tLongitude as double,\n\t\t{Land Area Square Meter} as decimal(25,0),\n\t\t{Build Area Square Meter} as decimal(25,0)\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: true,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT [ERP]\\n      ,[ERP UID SPEND]\\n      ,[ERP UID ZEROIZATION]\\n      ,[Facility ID]\\n      ,[Facility Name]\\n      ,[Facility Status]\\n      ,[Facility Type]\\n      ,[Facility Owner]\\n      ,[Business Activity]\\n      ,[Origin Business]\\n      ,[FDE-Country]\\n      ,[FDE-City]\\n      ,[Latitude]\\n      ,[Longitude]\\n      ,Convert(numeric(25,0),[Land Area Square Meter]) as [Land Area Square Meter]\\n      ,Convert(numeric(25,0),[Build Area Square Meter]) as [Build Area Square Meter]\\n  FROM [SSO_SHAREPOINT_SOURCE].[SRC_FI_SPO_FSPO_FFACFacMapping]',\n\tformat: 'query',\n\tstaged: true) ~> SrcFacilitiesMapping\nsource(output(\n\t\tAccountUnit as string,\n\t\tCCAUDesc as string,\n\t\tMgmtNIS_BLSummaryAcct as string,\n\t\tAccount as string,\n\t\tSubAccount as string,\n\t\tAccountDesc as string,\n\t\tYear as string,\n\t\tMonth as string,\n\t\tUpdateDate as string,\n\t\tSeqTrnsNbr as string,\n\t\tPostingDate as string,\n\t\tActivity as string,\n\t\tSourceCode as string,\n\t\tSystem as string,\n\t\tJournal as string,\n\t\tLineNbr as string,\n\t\tOperator as string,\n\t\tReference as string,\n\t\tDescription as string,\n\t\tCurrencyCode as string,\n\t\tTranAmount as string,\n\t\tBaseAmount as string,\n\t\tVendor as string,\n\t\tVendorVname as string,\n\t\tApInvoice as string,\n\t\tPoNumber as string,\n\t\tURN as string,\n\t\tCompany as string,\n\t\tCompany_Desc as string,\n\t\tProduct_Line_Group_Code as string,\n\t\tSL_Product_Line_Group_Code as string,\n\t\tProduct_Line_Code as string,\n\t\tSL_Product_Line_Code as string,\n\t\tSL_Sub_Product_Line_Code as string,\n\t\tSub_Product_Line_Code as string,\n\t\tSub_Sub_Product_Line_Code as string,\n\t\tMgmt_Country_Code as string,\n\t\tCountryDesc as string,\n\t\tSL_Area_Code as string,\n\t\tSL_Geomarket_Code as string,\n\t\tSL_Hemisphere_Code as string,\n\t\tSL_Hemisphere_Desc as string,\n\t\tSub_Geomarket_Code as string,\n\t\tERP_UID_SPEND as string,\n\t\tERP_UID_ZEROIZATION as string,\n\t\tSubAccnt_Minor as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select * from  [NGBS].[FFAC_PnL_Lawson_XR222_Temp_Part1]',\n\tformat: 'query',\n\tstaged: true) ~> SrcLawsonXR222\nsource(output(\n\t\tERP as string,\n\t\tRight_SubAccnt_Minor as string,\n\t\tNIS_Sub_Line as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select ERP,SubAccnt_Minor as Right_SubAccnt_Minor,PnL_Sub_group as NIS_Sub_Line from [NGBS].[SRC_FI_SPO_FSPO_GL_Accounts_Mapping_part1_temp] Where ERP = \\'Lawson\\' ',\n\tformat: 'query',\n\tstaged: true) ~> SrcGLAccountMapping\nsource(output(\n\t\tERP as string,\n\t\tERP_UID as string,\n\t\tFacility_ID as string,\n\t\tFacility_Name as string,\n\t\tFacility_Status as string,\n\t\tFacility_Type as string,\n\t\tFacility_Owner as string,\n\t\tBusiness_Activity as string,\n\t\tOrigin_Business as string,\n\t\tFDE_Country as string,\n\t\tFDE_City as string,\n\t\tLatitude as double,\n\t\tLongitude as double,\n\t\tLand_Area_Square_Meter as decimal(25,0),\n\t\tBuild_Area_Square_Meter as decimal(25,0),\n\t\tAccount_Type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select * from NGBS.SRC_FFAC_Facilities_Mapping_Part2_temp where ERP = \\'Lawson\\'',\n\tformat: 'query',\n\tstaged: true) ~> SrcFacilitiesMappingg\nsource(output(\n\t\tERP as string,\n\t\t{GL Account} as string,\n\t\t{Account (Desc)} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select Case when ERP = \\'Lawson\\' then Upper(ERP) else ERP end as ERP, [GL Account],[Account (Desc)] From [SSO_SHAREPOINT_SOURCE].[SRC_FI_SPO_FSPO_FFACZeroizationAccount]',\n\tformat: 'query',\n\tstaged: true) ~> SrcZeroizationAccount\nSrcFacilitiesMapping filter(!isNull(ERP)) ~> FltNotNullERP\nFltNotNullERP derive(ERP = upper(ERP)) ~> DerColUpperCaseERP\nDerColUpperCaseERP aggregate(groupBy({ERP UID SPEND},\n\t\t{Facility ID},\n\t\t{Facility Name},\n\t\t{Facility Status},\n\t\t{Facility Type},\n\t\t{Facility Owner},\n\t\tLatitude,\n\t\tLongitude,\n\t\t{Origin Business},\n\t\t{Business Activity},\n\t\tERP,\n\t\t{FDE-Country},\n\t\t{FDE-City},\n\t\t{Land Area Square Meter},\n\t\t{Build Area Square Meter}),\n\t{ERP UID ZEROIZATION} = max({ERP UID ZEROIZATION})) ~> AggGrpbySpend\nDerColUpperCaseERP aggregate(groupBy({ERP UID ZEROIZATION},\n\t\t{Facility ID},\n\t\t{Facility Name},\n\t\t{Facility Status},\n\t\t{Facility Type},\n\t\t{Facility Owner},\n\t\tLatitude,\n\t\tLongitude,\n\t\t{Origin Business},\n\t\t{Business Activity},\n\t\tERP,\n\t\t{FDE-Country},\n\t\t{FDE-City},\n\t\t{Land Area Square Meter},\n\t\t{Build Area Square Meter}),\n\t{ERP UID SPEND} = max({ERP UID SPEND})) ~> AggGrpbyZeroization\nDerColZeroization select(mapColumn(\n\t\t{ERP UID} = {ERP UID ZEROIZATION},\n\t\t{Facility ID},\n\t\t{Facility Name},\n\t\t{Facility Status},\n\t\t{Facility Type},\n\t\t{Facility Owner},\n\t\tLatitude,\n\t\tLongitude,\n\t\t{Origin Business},\n\t\t{Business Activity},\n\t\tERP,\n\t\t{FDE-Country},\n\t\t{FDE-City},\n\t\t{Land Area Square Meter},\n\t\t{Build Area Square Meter},\n\t\t{Account Type}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelZeroization\nDerColSpend select(mapColumn(\n\t\t{ERP UID} = {ERP UID SPEND},\n\t\t{Facility ID},\n\t\t{Facility Name},\n\t\t{Facility Status},\n\t\t{Facility Type},\n\t\t{Facility Owner},\n\t\tLatitude,\n\t\tLongitude,\n\t\t{Origin Business},\n\t\t{Business Activity},\n\t\tERP,\n\t\t{FDE-Country},\n\t\t{FDE-City},\n\t\t{Land Area Square Meter},\n\t\t{Build Area Square Meter},\n\t\t{Account Type}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelSpend\nSelSpend, SelZeroization union(byName: true)~> UnSpendandZeroization\nAggGrpbyZeroization derive({Account Type} = 'Zeroization') ~> DerColZeroization\nAggGrpbySpend derive({Account Type} = 'Spend') ~> DerColSpend\nUnSpendandZeroization select(mapColumn(\n\t\tERP_UID = {ERP UID},\n\t\tFacility_ID = {Facility ID},\n\t\tFacility_Name = {Facility Name},\n\t\tFacility_Status = {Facility Status},\n\t\tFacility_Type = {Facility Type},\n\t\tFacility_Owner = {Facility Owner},\n\t\tLatitude,\n\t\tLongitude,\n\t\tOrigin_Business = {Origin Business},\n\t\tBusiness_Activity = {Business Activity},\n\t\tERP,\n\t\tFDE_Country = {FDE-Country},\n\t\tFDE_City = {FDE-City},\n\t\tLand_Area_Square_Meter = {Land Area Square Meter},\n\t\tBuild_Area_Square_Meter = {Build Area Square Meter},\n\t\tAccount_Type = {Account Type}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameColumns\nSrcLawsonXR222, SrcGLAccountMapping join(SubAccnt_Minor == Right_SubAccnt_Minor,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerXR222andGLAccountMapping\nJnrInnerXR222andGLAccountMapping select(mapColumn(\n\t\tAccountUnit,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelReqFields\nSelReqFields, ExsAccMappingonSubAcctMinor union(byName: true)~> UnXR222andAccMapping\nUnXR222andAccMapping select(mapColumn(\n\t\tCCAU = AccountUnit,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameAccountUnitasCCAU\nSrcFacilitiesMappingg filter(Account_Type == 'Zeroization') ~> FltZeroization\nSelRenameAccountUnitasCCAU, FltZeroization join(ERP_UID_ZEROIZATION == ERP_UID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerZeroization\nExsZeriozation, FltSpend join(ERP_UID_SPEND == ERP_UID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerSpend\nSrcFacilitiesMappingg filter(Account_Type != 'Zeroization') ~> FltSpend\nJnrInnerZeroization, JnrInnerSpend union(byName: true)~> UnZeroizationandSpend\nSrcLawsonXR222, SrcGLAccountMapping exists(SubAccnt_Minor == Right_SubAccnt_Minor,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsAccMappingonSubAcctMinor\nSelRenameAccountUnitasCCAU, FltZeroization exists(ERP_UID_ZEROIZATION == ERP_UID,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsZeriozation\nExsZeriozation, FltSpend exists(ERP_UID_SPEND == ERP_UID,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsSpend\nUnZeroizationandSpend, SrcZeroizationAccount join(SubAccnt_Minor == {GL Account}\n\t&& UnZeroizationandSpend@ERP == SrcZeroizationAccount@ERP,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnUnZerSPandZeroAccount\nJnUnZerSPandZeroAccount select(mapColumn(\n\t\tCCAU,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line,\n\t\tERP = UnZeroizationandSpend@ERP,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\tGL_Account = {GL Account},\n\t\tAccount_Desc = {Account (Desc)}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelZeroizationFields\nSelZeroizationFields split(like(lower(Account_Desc),'%zero%') || like(lower(Account_Desc),'%char%') || like(lower(Account_Desc),'%allocation%'),\n\tdisjoint: false) ~> SpltAccDesc@(MatchedRows, NonMatchedRows)\nSpltAccDesc@MatchedRows derive(Account_Type = 'Zeroization/Recharges/Allocation') ~> DerColAccountTypeAll\nSpltAccDesc@NonMatchedRows derive(Account_Type = 'Spend') ~> DerColAccTypeSpend\nUnZeroizationandSpend, SrcZeroizationAccount exists(SubAccnt_Minor == {GL Account}\n\t&& UnZeroizationandSpend@ERP == SrcZeroizationAccount@ERP,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsZeroSpendandZeroization\nExsZeroSpendandZeroization derive(Account_Type = 'Spend') ~> DerColAccntTypeSpend\nDerColAccountTypeAll, DerColAccTypeSpend, DerColAccntTypeSpend union(byName: true)~> UnMultipleInputs\nAggGroupbyMulFields select(mapColumn(\n\t\tSL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelGroupbyFields\nUnMultipleInputs aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tERP),\n\teach(match(!in(['SL_Geomarket_Code','Mgmt_Country_Code','FDE_Country','ERP'],name)), $$ = first($$))) ~> AggGroupbyMulFields\nExsSpend filter(MgmtNIS_BLSummaryAcct == 'Office & Camp' || MgmtNIS_BLSummaryAcct == 'Office and Camp') ~> FltOfficeCamp\nFltOfficeCamp, SelGroupbyFields join(SelRenameAccountUnitasCCAU@SL_Geomarket_Code == SelGroupbyFields@SL_Geomarket_Code\n\t&& SelRenameAccountUnitasCCAU@Mgmt_Country_Code == SelGroupbyFields@Mgmt_Country_Code,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrExsSpendandGrpby\nSelJnrExsSpendFields aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tYear,\n\t\tMonth,\n\t\tERP),\n\teach(match(!in(['SL_Geomarket_Code','Mgmt_Country_Code','FDE_Country','Year','Month','ERP'],name)), $$ = first($$))) ~> AggGrpbyreqfileds\nJnrExsSpendandGrpby select(mapColumn(\n\t\tCCAU,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code = SelRenameAccountUnitasCCAU@Mgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code = SelRenameAccountUnitasCCAU@SL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line,\n\t\tFDE_Country,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelJnrExsSpendFields\nAggGrpbyreqfileds select(mapColumn(\n\t\tSL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tFDE_Country,\n\t\tYear,\n\t\tMonth,\n\t\tERP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelGrpbyFieldsonly\nSelGrpbyFieldsonly aggregate(groupBy(SL_Geomarket_Code,\n\t\tMgmt_Country_Code,\n\t\tYear,\n\t\tMonth,\n\t\tERP),\n\tFDE_Country = first(FDE_Country)) ~> AggUniquewithougFDECountry\nFltOfficeCamp, AggUniquewithougFDECountry join(SelRenameAccountUnitasCCAU@SL_Geomarket_Code == AggUniquewithougFDECountry@SL_Geomarket_Code\n\t&& SelRenameAccountUnitasCCAU@Mgmt_Country_Code == AggUniquewithougFDECountry@Mgmt_Country_Code\n\t&& SelRenameAccountUnitasCCAU@Year == AggUniquewithougFDECountry@Year\n\t&& SelRenameAccountUnitasCCAU@Month == AggUniquewithougFDECountry@Month,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JnrInnerOfficeCampusandUnique\nFltOfficeCamp, AggUniquewithougFDECountry exists(SelRenameAccountUnitasCCAU@SL_Geomarket_Code == AggUniquewithougFDECountry@SL_Geomarket_Code\n\t&& SelRenameAccountUnitasCCAU@Mgmt_Country_Code == AggUniquewithougFDECountry@Mgmt_Country_Code\n\t&& SelRenameAccountUnitasCCAU@Year == AggUniquewithougFDECountry@Year\n\t&& SelRenameAccountUnitasCCAU@Month == AggUniquewithougFDECountry@Month,\n\tnegate:true,\n\tbroadcast: 'auto')~> ExsOfficeCampandUnique\nJnrInnerOfficeCampusandUnique select(mapColumn(\n\t\tCCAU,\n\t\tCCAUDesc,\n\t\tMgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear = SelRenameAccountUnitasCCAU@Year,\n\t\tMonth = SelRenameAccountUnitasCCAU@Month,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code = SelRenameAccountUnitasCCAU@Mgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code = SelRenameAccountUnitasCCAU@SL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line,\n\t\tERP,\n\t\tFDE_Country\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelUniqueReqFields\nExsOfficeCampandUnique derive(FDE_Country = 'N/A',\n\t\tERP = 'LAWSON') ~> DerColFDECountryandERP\nSelUniqueReqFields, DerColFDECountryandERP union(byName: true)~> UnUniqueandNAFDECountry\nUnUniqueandNAFDECountry derive(Facility_Assigned = 'Non Facility AU') ~> DerColNonFacilityAssigned\nUnMultipleInputs derive(Facility_Assigned = 'Facility AU') ~> DerColFacilityAssigned\nDerColNonFacilityAssigned, DerColFacilityAssigned union(byName: true)~> UnNonFacilityAssandFacilAssigned\nUnNonFacilityAssandFacilAssigned derive(ExcludeCountry = toString(Year)+toString(Month)+Mgmt_Country_Code) ~> DerColExcludeCountry\nDerColExcludeCountry select(mapColumn(\n\t\tCCAU,\n\t\tCCAUDesc,\n\t\tNIS_Desc = MgmtNIS_BLSummaryAcct,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tInvoiceNo = ApInvoice,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line,\n\t\tERP,\n\t\tFDE_Country,\n\t\tFacility_Assigned,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\tGL_Account,\n\t\tAccount_Desc,\n\t\tExcludeCountry\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelRenameNISDescandAPInvoice\nSelRenameNISDescandAPInvoice filter(!in(['202011CO0','202011CPG3','202011PE0','202011GY0','202011SR0','202011TT0','202011DK0','202011NO0','202011SCA2'],ExcludeCountry)) ~> FltExcludeCountry\nSelRenameColumns sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tLatitude,\n\t\tLongitude,\n\t\tOrigin_Business,\n\t\tBusiness_Activity,\n\t\tERP,\n\t\tFDE_Country,\n\t\tFDE_City,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type\n\t)) ~> SnkFacilitiesMappingTemp\nFltExcludeCountry sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tCCAU as string,\n\t\tCCAUDesc as string,\n\t\tNIS_Desc as string,\n\t\tAccount as string,\n\t\tSubAccount as string,\n\t\tAccountDesc as string,\n\t\tYear as string,\n\t\tMonth as string,\n\t\tUpdateDate as date,\n\t\tSeqTrnsNbr as string,\n\t\tPostingDate as date,\n\t\tActivity as string,\n\t\tSourceCode as string,\n\t\tSystem as string,\n\t\tJournal as string,\n\t\tLineNbr as string,\n\t\tOperator as string,\n\t\tReference as string,\n\t\tDescription as string,\n\t\tCurrencyCode as string,\n\t\tTranAmount as string,\n\t\tBaseAmount as string,\n\t\tVendor as string,\n\t\tVendorVname as string,\n\t\tInvoiceNo as string,\n\t\tPoNumber as string,\n\t\tURN as string,\n\t\tCompany as string,\n\t\tCompany_Desc as string,\n\t\tProduct_Line_Group_Code as string,\n\t\tSL_Product_Line_Group_Code as string,\n\t\tProduct_Line_Code as string,\n\t\tSL_Product_Line_Code as string,\n\t\tSL_Sub_Product_Line_Code as string,\n\t\tSub_Product_Line_Code as string,\n\t\tSub_Sub_Product_Line_Code as string,\n\t\tMgmt_Country_Code as string,\n\t\tCountryDesc as string,\n\t\tSL_Area_Code as string,\n\t\tSL_Geomarket_Code as string,\n\t\tSL_Hemisphere_Code as string,\n\t\tSL_Hemisphere_Desc as string,\n\t\tSub_Geomarket_Code as string,\n\t\tERP_UID_SPEND as string,\n\t\tERP_UID_ZEROIZATION as string,\n\t\tSubAccnt_Minor as string,\n\t\tNIS_Sub_Line as string,\n\t\tERP_UID as string,\n\t\tFacility_ID as string,\n\t\tFacility_Name as string,\n\t\tFacility_Status as string,\n\t\tFacility_Type as string,\n\t\tFacility_Owner as string,\n\t\tLatitude as double,\n\t\tLongitude as double,\n\t\tOrigin_Business as string,\n\t\tBusiness_Activity as string,\n\t\tERP as string,\n\t\tFDE_Country as string,\n\t\tFDE_City as string,\n\t\tLand_Area_Square_Meter as decimal(24,0),\n\t\tBuild_Area_Square_Meter as decimal(24,0),\n\t\tAccount_Type as string,\n\t\tGL_Account as string,\n\t\tAccount_Desc as string,\n\t\tFacility_Assigned as string,\n\t\tExcludeCountry as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tCCAU,\n\t\tCCAUDesc,\n\t\tNIS_Desc,\n\t\tAccount,\n\t\tSubAccount,\n\t\tAccountDesc,\n\t\tYear,\n\t\tMonth,\n\t\tUpdateDate,\n\t\tSeqTrnsNbr,\n\t\tPostingDate,\n\t\tActivity,\n\t\tSourceCode,\n\t\tSystem,\n\t\tJournal,\n\t\tLineNbr,\n\t\tOperator,\n\t\tReference,\n\t\tDescription,\n\t\tCurrencyCode,\n\t\tTranAmount,\n\t\tBaseAmount,\n\t\tVendor,\n\t\tVendorVname,\n\t\tInvoiceNo,\n\t\tPoNumber,\n\t\tURN,\n\t\tCompany,\n\t\tCompany_Desc,\n\t\tProduct_Line_Group_Code,\n\t\tSL_Product_Line_Group_Code,\n\t\tProduct_Line_Code,\n\t\tSL_Product_Line_Code,\n\t\tSL_Sub_Product_Line_Code,\n\t\tSub_Product_Line_Code,\n\t\tSub_Sub_Product_Line_Code,\n\t\tMgmt_Country_Code,\n\t\tCountryDesc,\n\t\tSL_Area_Code,\n\t\tSL_Geomarket_Code,\n\t\tSL_Hemisphere_Code,\n\t\tSL_Hemisphere_Desc,\n\t\tSub_Geomarket_Code,\n\t\tERP_UID_SPEND,\n\t\tERP_UID_ZEROIZATION,\n\t\tSubAccnt_Minor,\n\t\tNIS_Sub_Line,\n\t\tERP,\n\t\tFDE_Country,\n\t\tFacility_Assigned,\n\t\tERP_UID,\n\t\tFacility_ID,\n\t\tFacility_Name,\n\t\tFacility_Status,\n\t\tFacility_Type,\n\t\tFacility_Owner,\n\t\tBusiness_Activity,\n\t\tOrigin_Business,\n\t\tFDE_City,\n\t\tLatitude,\n\t\tLongitude,\n\t\tLand_Area_Square_Meter,\n\t\tBuild_Area_Square_Meter,\n\t\tAccount_Type,\n\t\tGL_Account,\n\t\tAccount_Desc,\n\t\tExcludeCountry\n\t)) ~> SnkFFACPnLLawsontempPart2"
+		}
+	}
+}

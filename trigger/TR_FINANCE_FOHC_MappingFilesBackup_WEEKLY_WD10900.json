@@ -1,0 +1,29 @@
+{
+	"name": "TR_FINANCE_FOHC_MappingFilesBackup_WEEKLY_WD10900",
+	"properties": {
+		"description": "Trigger which runs every week 9 AM UTC",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2022-09-06T16:25:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						9
+					],
+					"weekDays": [
+						"Friday"
+					]
+				}
+			}
+		}
+	}
+}

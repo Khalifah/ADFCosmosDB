@@ -1,0 +1,36 @@
+{
+	"name": "TR_FINANCE_FDSC_M0500",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2022-04-29T13:54:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						5
+					],
+					"monthDays": [
+						8,
+						9,
+						11,
+						10,
+						12,
+						14,
+						13,
+						15,
+						16
+					]
+				}
+			}
+		}
+	}
+}

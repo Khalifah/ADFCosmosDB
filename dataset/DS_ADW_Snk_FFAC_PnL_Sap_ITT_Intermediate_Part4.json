@@ -1,0 +1,115 @@
+{
+	"name": "DS_ADW_Snk_FFAC_PnL_Sap_ITT_Intermediate_Part4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADW_FIELDCOREDATA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FFAC"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Profit_Center_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Group_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Product_Line_Group_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Sub_Product_Line_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Product_Line_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Area_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Area_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Area_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Geomarket_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SL_Hemisphere_Desc",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Geomarket_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SYS_CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SYS_CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Country_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Country_Desc",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "NGBS",
+			"table": "FFAC_PnL_SAP_ITT_Intermediate_Temp_Part4"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

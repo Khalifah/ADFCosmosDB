@@ -1,0 +1,29 @@
+{
+	"name": "TR_FINANCE_FRJV_SAPITT_M150145",
+	"properties": {
+		"description": "PL_FRJV_SAPITT\nFI_FRJV_0006_SAPITT-Monthly on 15th 3.45AM CET",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2022-05-16T09:56:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						45
+					],
+					"hours": [
+						1
+					],
+					"monthDays": [
+						15
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,29 @@
+{
+	"name": "TR_FINANCE_FRJV_XQ109_M120030",
+	"properties": {
+		"description": "PL_FRJV_0003_XQ109\nFI_FRJV_0003_XQ109-Monthly on 12th 2AM CET",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2022-06-09T10:36:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						0
+					],
+					"monthDays": [
+						12
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,50 @@
+{
+	"name": "TR_FINANCE_FMPO_DataUpload_DAILY_D0400",
+	"properties": {
+		"description": "Trigger which runs every month on the following dates 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,29,30,31,Last at 04:00 AM",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2022-05-01T05:41:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						4
+					],
+					"monthDays": [
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						29,
+						30,
+						31,
+						-1
+					]
+				}
+			}
+		}
+	}
+}

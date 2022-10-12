@@ -1,0 +1,29 @@
+{
+	"name": "TR_FINANCE_FRJV_FINR730_M120130",
+	"properties": {
+		"description": "PL_FRJV_0001_FINR730\nFI_FRJV_0001_FINR730-Monthly on 12th  3AM CET",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2022-06-09T10:38:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						1
+					],
+					"monthDays": [
+						12
+					]
+				}
+			}
+		}
+	}
+}

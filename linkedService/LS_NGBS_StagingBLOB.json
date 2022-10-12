@@ -1,0 +1,12 @@
+{
+	"name": "LS_NGBS_StagingBLOB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://glbbirptblob01prd.blob.core.windows.net",
+			"accountKind": "StorageV2"
+		}
+	}
+}

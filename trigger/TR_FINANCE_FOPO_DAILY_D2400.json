@@ -1,0 +1,26 @@
+{
+	"name": "TR_FINANCE_FOPO_DAILY_D2400",
+	"properties": {
+		"description": "Trigger which runs daily at 12:00 PM",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-03-03T10:13:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						12
+					]
+				}
+			}
+		}
+	}
+}
