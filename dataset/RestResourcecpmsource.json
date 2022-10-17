@@ -8,7 +8,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": ""
+			"relativeUrl": "sso/arcgis/rest/services/CPMRisk/Supplier_Location/MapServer/0/query?where=1=1&outSR=4326&outFields=SUPPLIER_ID,SUPPLIER_INDEX,SUPPLIER_ID_PK,SUPPLIER_LIVECYCLE_STATUS,NAME,STREET,STREET_NUMBER,ZIP_CODE,CITY,COUNTRY,XCOORD,YCOORD,TIER,NAT_RISK_KPI,POL_RISK_KPI,TOTAL_KPI,MAINRISK,GN_LAST_EDITED_DATE&returnGeometry=true&resultRecordCount=1000&f=json&resultoffset=0"
 		},
 		"schema": []
 	}
