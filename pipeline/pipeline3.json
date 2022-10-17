@@ -1,0 +1,29 @@
+{
+	"name": "pipeline3",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://www.cpm-risk.com/wss/service/ags-relay/ArcGISServer/",
+					"method": "GET",
+					"headers": {
+						"Accept": "application/json",
+						"Cookie": "ct_SSO=*|ea9f772f520090990f0a3e62c75740eb|568fecff458b082276d966b2a0894cda13deab99"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}

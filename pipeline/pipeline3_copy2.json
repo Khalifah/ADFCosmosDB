@@ -1,0 +1,59 @@
+{
+	"name": "pipeline3_copy2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ACT_MP_PROD_CPM_RISK_COPY_LZ2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Cookie": "ct_SSO=*|ea9f772f520090990f0a3e62c75740eb|568fecff458b082276d966b2a0894cda13deab99"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "RestResourcecpmsource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CPM_Test_JSON",
+						"type": "DatasetReference",
+						"parameters": {
+							"FILE_SYSTEM": "bu-mp",
+							"FOLDER_PATH": "/cpm-risk/prod/data",
+							"FILE_NAME": "cpm_risk_1.json"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

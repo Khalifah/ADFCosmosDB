@@ -1,0 +1,28 @@
+{
+	"name": "CPM_Test_JSON_copy1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForCosmos",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FILE_SYSTEM": {
+				"type": "string"
+			},
+			"FOLDER_PATH": {
+				"type": "string"
+			},
+			"FILE_NAME": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation"
+			}
+		},
+		"schema": {}
+	}
+}

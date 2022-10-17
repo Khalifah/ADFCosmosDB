@@ -75,7 +75,10 @@
 						"computeType": "General"
 					},
 					"traceLevel": "Fine",
-					"runConcurrently": true
+					"runConcurrently": true,
+					"continuationSettings": {
+						"customizedCheckpointKey": "a868c27b-cbfa-4e8b-911a-d9e617573e7c"
+					}
 				}
 			},
 			{

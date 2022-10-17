@@ -1,0 +1,17 @@
+{
+	"name": "LS_MP_PROD_CPM_RISK_REST_API",
+	"properties": {
+		"description": "Data URL for Rest API",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://www.cpm-risk.com/",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "eXtollo-AzureIRs",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

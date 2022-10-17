@@ -1,0 +1,40 @@
+{
+	"name": "CPM_Test_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CoE_EU_Landing_Zone_v2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FILE_SYSTEM": {
+				"type": "string"
+			},
+			"FOLDER_PATH": {
+				"type": "string"
+			},
+			"FILE_NAME": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FILE_NAME",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().FOLDER_PATH",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().FILE_SYSTEM",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}

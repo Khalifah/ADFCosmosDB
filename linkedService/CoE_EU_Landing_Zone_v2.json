@@ -1,0 +1,17 @@
+{
+	"name": "CoE_EU_Landing_Zone_v2",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://landingzone0eu0qlir.dfs.core.windows.net",
+			"subscriptionId": "3e959272-bef3-49e1-a2a6-58ee4a3dd124",
+			"resourceGroupName": "coe-eu-batchingest"
+		},
+		"connectVia": {
+			"referenceName": "eXtollo-AzureIRs",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
