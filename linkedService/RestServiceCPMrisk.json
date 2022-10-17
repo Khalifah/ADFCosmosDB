@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://www.cpm-risk.com/",
+			"url": "https://www.cpm-risk.com/wss/service/ags-relay/ArcGISServer/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
