@@ -25,7 +25,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Account_JSON_Output_dummy",
+						"referenceName": "Account_JSON_Output_dummy2",
 						"type": "DatasetReference"
 					},
 					"name": "SinkValidation",
