@@ -62,6 +62,9 @@
 				},
 				{
 					"name": "populateCountryFields"
+				},
+				{
+					"name": "z"
 				}
 			],
 			"scriptLines": [
@@ -423,6 +426,7 @@
 				"SelectExplicitMappingAccount derive(ownerCountry = iif(in(array('jupitermfsupport@deloitte.com','schilupuri@deloitte.com','sandbala@deloitte.com','inactiveuser@example.com'), ownerEmail), 'US', ownerCountry),",
 				"          {versionHistory.lastModifiedBy.country} = iif(in(array('jupitermfsupport@deloitte.com','schilupuri@deloitte.com','sandbala@deloitte.com','inactiveuser@example.com'), {versionHistory.lastModifiedBy.email}), 'US', {versionHistory.lastModifiedBy.country}),",
 				"          {versionHistory.createdBy.country} = iif(in(array('jupitermfsupport@deloitte.com','schilupuri@deloitte.com','sandbala@deloitte.com','inactiveuser@example.com'), {versionHistory.createdBy.email}), 'US', {versionHistory.createdBy.country})) ~> populateCountryFields",
+				"assertMandatoryFields filter(ERROR_FUNCTION('')) ~> z",
 				"DiscardNestedAccountObjectFields sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -451,7 +455,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('roundRobin', 48)) ~> SinkAccountJSON",
-				"assertMandatoryFields sink(allowSchemaDrift: true,",
+				"z sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          StudentID as string,",

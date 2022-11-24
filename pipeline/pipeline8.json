@@ -1,0 +1,68 @@
+{
+	"name": "pipeline8",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://a202986-d1-musea2-func001-fa1.azurewebsites.net/api/v1/interlock/publish",
+					"connectVia": {
+						"referenceName": "SHIR1",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"interlockEvents": [
+							{
+								"lineage": {
+									"source": "OVOCPLATFORM",
+									"sourceEventId": "8b83e8ca-e621-45ee-ba65-83f6b1b4abca",
+									"target": "OVOCSE",
+									"model": null,
+									"rules": [],
+									"classification": null,
+									"version": "0.1"
+								},
+								"header": {
+									"messagingMode": "PRODUCTION",
+									"domain": "population",
+									"type": "POPULATION_REFRESHED",
+									"subType": null,
+									"version": "1.0",
+									"businessProcessId": "POPULATION_REFRESHED",
+									"occurredOn": "2022-04-26T14:59:19.166Z"
+								},
+								"body": {
+									"container": "population",
+									"filePath": "upload/vin/Safety_and_security",
+									"fileName": "safety_and_security.csv",
+									"popType": "Safety_and_security",
+									"popFields": [
+										"vin"
+									],
+									"delimiter": ",",
+									"jobStartTs": "2022-08-30T11:05:51.078Z",
+									"jobCompleteTs": "2022-08-30T12:15:01.256Z"
+								}
+							}
+						]
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
