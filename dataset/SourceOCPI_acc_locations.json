@@ -1,0 +1,16 @@
+{
+	"name": "SourceOCPI_acc_locations",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OCPI_acc",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "2.1.1/locations",
+			"requestMethod": "GET"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

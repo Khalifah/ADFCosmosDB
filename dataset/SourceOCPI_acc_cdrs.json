@@ -1,0 +1,31 @@
+{
+	"name": "SourceOCPI_acc_cdrs",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OCPI_acc",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"abc": {
+				"type": "string",
+				"defaultValue": "12"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "2.1.1/cdrs",
+			"requestMethod": "GET",
+			"additionalHeaders": {
+				"link": "{link}"
+			},
+			"paginationRules": {
+				"AbsoluteUrl": {
+					"value": "Headers.{link}",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

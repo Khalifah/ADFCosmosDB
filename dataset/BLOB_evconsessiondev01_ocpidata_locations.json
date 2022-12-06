@@ -1,0 +1,27 @@
+{
+	"name": "BLOB_evconsessiondev01_ocpidata_locations",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "evconsessiondev01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('locations ', formatDateTime(utcnow(), 'yyyy-MM-ddTHH:mm:ss:fffffffK'))",
+					"type": "Expression"
+				},
+				"folderPath": "locations",
+				"container": "ocpi-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

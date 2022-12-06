@@ -1,0 +1,15 @@
+{
+	"name": "SQL_MI_evconcession_dev_db",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=engiebe-sqlmi.5f62730c3f16.database.windows.net;Initial Catalog=evconcession-dev-db"
+		},
+		"connectVia": {
+			"referenceName": "Oskar-Reporting-Linked",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
