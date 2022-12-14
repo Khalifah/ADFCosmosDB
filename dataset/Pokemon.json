@@ -1,0 +1,12 @@
+{
+	"name": "Pokemon",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "PokemonPagination",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}

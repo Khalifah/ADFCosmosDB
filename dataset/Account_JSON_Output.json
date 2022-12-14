@@ -2,7 +2,7 @@
 	"name": "Account_JSON_Output",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "blob_storage",
+			"referenceName": "AzureBlob_LargeFile",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -13,11 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": {
-					"value": "@concat('jupiter/output/', formatDateTime(utcnow(), 'yyyy-MM-dd'), '/account/result')",
-					"type": "Expression"
-				},
-				"container": "data-factory"
+				"folderPath": "ExcelFrom",
+				"container": "adftutorial"
 			}
 		},
 		"schema": {}
