@@ -7,6 +7,10 @@
 		"typeProperties": {
 			"serviceEndpoint": "https://glbbirptblob01prd.blob.core.windows.net",
 			"accountKind": "StorageV2"
+		},
+		"connectVia": {
+			"referenceName": "TestingIR",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
