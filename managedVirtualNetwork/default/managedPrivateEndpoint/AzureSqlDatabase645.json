@@ -1,0 +1,7 @@
+{
+	"name": "AzureSqlDatabase645",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/52db91f0-7f23-4e80-96ec-ac7559f84279/resourceGroups/AzureTestforAli/providers/Microsoft.Sql/servers/mysqlserverali",
+		"groupId": "sqlServer"
+	}
+}
