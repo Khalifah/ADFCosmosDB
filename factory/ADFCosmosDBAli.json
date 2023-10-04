@@ -1,0 +1,9 @@
+{
+	"name": "ADFCosmosDBAli",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "true"
+		}
+	},
+	"location": "westeurope"
+}
